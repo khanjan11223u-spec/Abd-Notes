@@ -4,57 +4,284 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ABD NOTES</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
-        body { background-color: #000; color: #fff; padding: 20px; position: relative; }
-        
-        /* Header (Name + About Button) */
-        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-        .header h1 { color: #FFD700; text-shadow: 0 0 15px #FFD700; font-size: 26px; }
-        
-        /* ABOUT Button */
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Poppins:wght@400;500;600&display=swap');
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { 
+            background-color: #050505; 
+            background-image: linear-gradient(45deg, #111 25%, transparent 25%, transparent 75%, #111 75%, #111), linear-gradient(45deg, #111 25%, transparent 25%, transparent 75%, #111 75%, #111);
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
+            color: #fff; 
+            font-family: 'Poppins', sans-serif;
+            padding: 20px;
+            padding-bottom: 100px;
+        }
+
+        /* --- Header Section --- */
+        .header { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            margin-bottom: 30px; 
+            border-bottom: 2px solid #FFD700;
+            padding-bottom: 15px;
+        }
+        .title-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .title-container i { color: #FFD700; font-size: 30px; text-shadow: 0 0 15px #FFD700; }
+        .title-container h1 { 
+            font-family: 'Cinzel', serif;
+            color: #FFD700; 
+            text-shadow: 0 0 15px rgba(255, 215, 0, 0.8); 
+            font-size: 26px; 
+            letter-spacing: 1px;
+        }
+        .title-container p {
+            font-size: 10px;
+            letter-spacing: 2px;
+            color: #ccc;
+            margin-top: 2px;
+            text-align: center;
+        }
+
+        /* --- About Button --- */
         .about-btn { 
             background: transparent; 
             color: #FFD700; 
             border: 2px solid #FFD700; 
-            padding: 8px 15px; 
-            border-radius: 20px; 
-            font-weight: bold; 
-            font-size: 14px;
-            box-shadow: 0 0 10px rgba(255,215,0,0.5);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            box-shadow: 0 0 15px rgba(255,215,0,0.5);
             cursor: pointer;
+            transition: 0.3s;
         }
         .about-btn:hover { background: #FFD700; color: black; }
 
-        /* Cards */
-        .card { border: 2px solid #FFD700; border-radius: 15px; padding: 15px; margin-bottom: 20px; box-shadow: 0 0 10px rgba(255,215,0,0.3); }
-        textarea { width: 100%; height: 100px; background: #222; color: #fff; border: 1px solid #555; padding: 10px; border-radius: 8px; margin-bottom: 10px; resize: none; }
-        button.save-btn { background: #FFD700; color: #000; padding: 12px; width: 100%; border: none; border-radius: 8px; font-weight: bold; font-size: 16px; cursor: pointer; }
+        /* --- Golden Cards --- */
+        .card { 
+            background: linear-gradient(145deg, #1a1a1a, #0a0a0a);
+            border: 2px solid #FFD700; 
+            border-radius: 20px; 
+            padding: 20px; 
+            margin-bottom: 25px; 
+            box-shadow: 0 0 15px rgba(255,215,0,0.2), inset 0 0 10px rgba(255,215,0,0.1); 
+            position: relative;
+        }
+        .card::before, .card::after {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border: 3px solid #FFD700;
+            border-radius: 15px;
+        }
+        .card::before { top: -2px; left: -2px; border-right: none; border-bottom: none; }
+        .card::after { bottom: -2px; right: -2px; border-left: none; border-top: none; }
+
+        textarea { 
+            width: 100%; 
+            height: 120px; 
+            background: #111; 
+            color: #fff; 
+            border: 1px solid #444; 
+            padding: 15px; 
+            border-radius: 12px; 
+            margin-bottom: 15px; 
+            resize: none;
+            font-family: 'Poppins', sans-serif;
+        }
+        textarea::placeholder { color: #888; }
+
+        button.save-btn { 
+            background: linear-gradient(90deg, #FFD700, #FFA500); 
+            color: #000; 
+            padding: 15px; 
+            width: 100%; 
+            border: none; 
+            border-radius: 12px; 
+            font-weight: bold; 
+            font-size: 16px; 
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 5px 15px rgba(255,215,0,0.3);
+            transition: 0.3s;
+        }
+        button.save-btn:hover { box-shadow: 0 5px 25px rgba(255,215,0,0.6); }
+
+        /* --- Notes List --- */
+        .notes-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .notes-header h2 { color: #FFD700; font-size: 22px; display: flex; align-items: center; gap: 10px; }
         
-        /* Notes List */
-        .note { background: #1a1a1a; border-left: 4px solid #FFD700; padding: 10px; margin-top: 10px; border-radius: 5px; word-wrap: break-word; }
-        .delete-btn { background: #ff3333; color: white; width: auto; padding: 5px 10px; font-size: 12px; margin-top: 5px; border-radius: 5px; border: none; cursor: pointer;}
-        h2 { color: #FFD700; margin-bottom: 10px; }
+        .note-item { 
+            background: #111; 
+            border-left: 5px solid #FFD700; 
+            padding: 15px; 
+            margin-top: 15px; 
+            border-radius: 10px; 
+            word-wrap: break-word; 
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        .note-content h4 { color: #FFD700; margin-bottom: 5px; font-size: 14px; }
+        .note-content p { color: #ddd; font-size: 15px; margin-bottom: 10px; }
+        .note-date { font-size: 11px; color: #888; display: flex; align-items: center; gap: 5px; }
+
+        .delete-btn { 
+            background: transparent; 
+            color: #ff4444; 
+            border: 1px solid #ff4444;
+            padding: 8px 12px; 
+            border-radius: 8px; 
+            cursor: pointer;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+        .delete-btn:hover { background: #ff4444; color: white; }
+
+        /* --- Bottom Navigation --- */
+        .bottom-nav {
+            position: fixed;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            background: #0a0a0a;
+            border: 2px solid #FFD700;
+            border-radius: 30px;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            box-shadow: 0 0 20px rgba(255,215,0,0.3);
+            z-index: 100;
+        }
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #888;
+            text-decoration: none;
+            font-size: 12px;
+            gap: 5px;
+            transition: 0.3s;
+        }
+        .nav-item i { font-size: 20px; }
+        .nav-item.active { color: #FFD700; text-shadow: 0 0 10px #FFD700; }
+        .nav-item.active::after {
+            content: '';
+            width: 20px;
+            height: 3px;
+            background: #FFD700;
+            border-radius: 2px;
+            margin-top: 2px;
+            box-shadow: 0 0 10px #FFD700;
+        }
+
+        /* --- Custom Dialog Box --- */
+        #aboutDialog {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+        .dialog-box {
+            background: #111;
+            border: 2px solid #FFD700;
+            border-radius: 20px;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 0 30px rgba(255,215,0,0.5);
+            max-width: 400px;
+            width: 100%;
+            font-family: 'Poppins', sans-serif;
+        }
+        .dialog-box h2 { color: #FFD700; margin-bottom: 15px; text-shadow: 0 0 10px #FFD700; font-family: 'Cinzel', serif;}
+        .dialog-box p { color: #ccc; font-size: 14px; line-height: 1.6; margin-bottom: 20px; }
+        .dialog-box strong { color: #FFD700; font-size: 16px; }
+        .dialog-box button {
+            background: #FFD700; color: #000; border: none; padding: 12px 25px;
+            border-radius: 10px; font-weight: bold; cursor: pointer; font-size: 16px;
+        }
     </style>
 </head>
 <body>
 
-    <!-- Upar ka Hissa -->
+    <!-- Header -->
     <div class="header">
-        <h1>ABD NOTES 📒</h1>
-        <button class="about-btn" onclick="alert('ABD NOTES 📒\n\nCreated by ABD AI Library\nVersion 1.0')">ABOUT</button>
+        <div class="title-container">
+            <i class="fas fa-crown"></i>
+            <div>
+                <h1>ABD NOTES</h1>
+                <p>IDEAS • PLANS • DREAMS</p>
+            </div>
+        </div>
+        <button class="about-btn" onclick="showAbout()">
+            <i class="fas fa-info"></i>
+        </button>
     </div>
 
-    <!-- Note Likhne ka Card -->
+    <!-- Note Input -->
     <div class="card">
         <textarea id="noteInput" placeholder="Yahan apni note likhein..."></textarea>
-        <button class="save-btn" onclick="saveNote()">SAVE NOTE</button>
+        <button class="save-btn" onclick="saveNote()">
+            <i class="fas fa-save"></i> SAVE NOTE <i class="fas fa-arrow-right" style="margin-left: auto;"></i>
+        </button>
     </div>
 
-    <!-- Saved Notes ka Card -->
+    <!-- Saved Notes -->
     <div class="card">
-        <h2>Saved Notes</h2>
+        <div class="notes-header">
+            <h2><i class="fas fa-file-alt"></i> Saved Notes</h2>
+            <span id="noteCount" style="color: #888;">0 Notes</span>
+        </div>
         <div id="notesList"></div>
+    </div>
+
+    <!-- Bottom Nav -->
+    <div class="bottom-nav">
+        <a href="#" class="nav-item active">
+            <i class="fas fa-home"></i><span>Home</span>
+        </a>
+        <a href="#" class="nav-item">
+            <i class="fas fa-sticky-note"></i><span>Notes</span>
+        </a>
+        <a href="#" class="nav-item">
+            <i class="fas fa-user"></i><span>Profile</span>
+        </a>
+    </div>
+
+    <!-- About Dialog (Popup) -->
+    <div id="aboutDialog">
+        <div class="dialog-box">
+            <i class="fas fa-crown" style="color: #FFD700; font-size: 40px; margin-bottom: 15px; text-shadow: 0 0 15px #FFD700;"></i>
+            <h2>ABD NOTES</h2>
+            <p>
+                This premium note-taking application is proudly developed by <br>
+                <strong>ABD AI Studio</strong><br>
+                Your trusted partner in digital innovation.
+            </p>
+            <p style="font-size: 12px; color: #888;">Version 2.0</p>
+            <button onclick="closeAbout()">CLOSE</button>
+        </div>
     </div>
 
     <script>
@@ -63,7 +290,11 @@
         function saveNote() {
             let text = document.getElementById('noteInput').value;
             if(text.trim() === "") { alert("Note khali hai!"); return; }
-            notes.push(text);
+            
+            let now = new Date();
+            let dateStr = now.getDate() + ' ' + now.toLocaleString('default', { month: 'short' }) + ' ' + now.getFullYear() + ' • ' + now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            
+            notes.unshift({ text: text, date: dateStr }); 
             localStorage.setItem('abdNotes', JSON.stringify(notes));
             document.getElementById('noteInput').value = "";
             displayNotes();
@@ -79,17 +310,37 @@
 
         function displayNotes() {
             let list = document.getElementById('notesList');
+            let count = document.getElementById('noteCount');
             list.innerHTML = "";
-            if(notes.length === 0) { list.innerHTML = "<p style='color:gray'>Koi note nahi hai.</p>"; return; }
+            count.innerText = notes.length + " Notes";
+            
+            if(notes.length === 0) { list.innerHTML = "<p style='color:gray; text-align:center;'>Koi note nahi hai.</p>"; return; }
             
             notes.forEach((note, index) => {
                 let div = document.createElement('div');
-                div.className = 'note';
-                div.innerHTML = `<strong>Note ${index+1}:</strong><br>${note}
-                <br><button class="delete-btn" onclick="deleteNote(${index})">Delete</button>`;
+                div.className = 'note-item';
+                div.innerHTML = `
+                    <div class="note-content">
+                        <h4>Note ${notes.length - index}:</h4>
+                        <p>${note.text}</p>
+                        <span class="note-date"><i class="far fa-calendar-alt"></i> ${note.date}</span>
+                    </div>
+                    <button class="delete-btn" onclick="deleteNote(${index})">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                `;
                 list.appendChild(div);
             });
         }
+        
+        function showAbout() {
+            document.getElementById('aboutDialog').style.display = 'flex';
+        }
+        
+        function closeAbout() {
+            document.getElementById('aboutDialog').style.display = 'none';
+        }
+
         displayNotes();
     </script>
 </body>
