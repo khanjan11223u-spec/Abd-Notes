@@ -3,28 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ABD AI Library</title>
+    <title>ABD NOTES</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
-        body { background-color: #000; color: #fff; padding: 20px; }
-        h1 { color: #FFD700; text-align: center; margin-bottom: 20px; text-shadow: 0 0 10px #FFD700; font-size: 24px; }
+        body { background-color: #000; color: #fff; padding: 20px; position: relative; }
+        
+        /* Header (Name + About Button) */
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .header h1 { color: #FFD700; text-shadow: 0 0 15px #FFD700; font-size: 26px; }
+        
+        /* ABOUT Button */
+        .about-btn { 
+            background: transparent; 
+            color: #FFD700; 
+            border: 2px solid #FFD700; 
+            padding: 8px 15px; 
+            border-radius: 20px; 
+            font-weight: bold; 
+            font-size: 14px;
+            box-shadow: 0 0 10px rgba(255,215,0,0.5);
+            cursor: pointer;
+        }
+        .about-btn:hover { background: #FFD700; color: black; }
+
+        /* Cards */
         .card { border: 2px solid #FFD700; border-radius: 15px; padding: 15px; margin-bottom: 20px; box-shadow: 0 0 10px rgba(255,215,0,0.3); }
         textarea { width: 100%; height: 100px; background: #222; color: #fff; border: 1px solid #555; padding: 10px; border-radius: 8px; margin-bottom: 10px; resize: none; }
-        button { background: #FFD700; color: #000; padding: 12px; width: 100%; border: none; border-radius: 8px; font-weight: bold; font-size: 16px; cursor: pointer; }
+        button.save-btn { background: #FFD700; color: #000; padding: 12px; width: 100%; border: none; border-radius: 8px; font-weight: bold; font-size: 16px; cursor: pointer; }
+        
+        /* Notes List */
         .note { background: #1a1a1a; border-left: 4px solid #FFD700; padding: 10px; margin-top: 10px; border-radius: 5px; word-wrap: break-word; }
-        .delete-btn { background: #ff3333; color: white; width: auto; padding: 5px 10px; font-size: 12px; margin-top: 5px; border-radius: 5px; }
+        .delete-btn { background: #ff3333; color: white; width: auto; padding: 5px 10px; font-size: 12px; margin-top: 5px; border-radius: 5px; border: none; cursor: pointer;}
+        h2 { color: #FFD700; margin-bottom: 10px; }
     </style>
 </head>
 <body>
-    <h1>ABD AI Library</h1>
+
+    <!-- Upar ka Hissa -->
+    <div class="header">
+        <h1>ABD NOTES 📒</h1>
+        <button class="about-btn" onclick="alert('ABD NOTES 📒\n\nCreated by ABD AI Library\nVersion 1.0')">ABOUT</button>
+    </div>
+
+    <!-- Note Likhne ka Card -->
     <div class="card">
         <textarea id="noteInput" placeholder="Yahan apni note likhein..."></textarea>
-        <button onclick="saveNote()">SAVE NOTE</button>
+        <button class="save-btn" onclick="saveNote()">SAVE NOTE</button>
     </div>
+
+    <!-- Saved Notes ka Card -->
     <div class="card">
-        <h2 style="color:#FFD700; margin-bottom:10px;">Saved Notes</h2>
+        <h2>Saved Notes</h2>
         <div id="notesList"></div>
     </div>
+
     <script>
         let notes = JSON.parse(localStorage.getItem('abdNotes')) || [];
         
@@ -61,4 +93,4 @@
         displayNotes();
     </script>
 </body>
-                                                                    </html>
+    </html>
