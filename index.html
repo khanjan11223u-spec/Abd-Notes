@@ -10,109 +10,110 @@
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { 
-            background-color: #050505; 
+            background-color: #000000; 
             background-image: radial-gradient(#222 1px, transparent 1px);
-            background-size: 20px 20px;
+            background-size: 15px 15px;
             color: #fff; 
             font-family: 'Poppins', sans-serif;
-            padding: 15px;
-            padding-bottom: 80px; /* For bottom bar */
+            padding: 20px;
+            padding-bottom: 100px;
         }
 
-        /* --- Header Section --- */
+        /* --- Header Section (Centered) --- */
         .header { 
             display: flex; 
-            justify-content: space-between; 
+            justify-content: center; /* Center Heading */
             align-items: center; 
-            margin-bottom: 20px; 
-            border-bottom: 1px solid #333;
-            padding-bottom: 10px;
+            margin-bottom: 25px; 
+            position: relative;
         }
         .title-container {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
-        .title-container i { color: #FFD700; font-size: 24px; text-shadow: 0 0 10px #FFD700; }
+        .title-container i { 
+            color: #FFD700; 
+            font-size: 28px; 
+            text-shadow: 0 0 20px #FFD700, 0 0 40px #FFD700; /* Strong Glow */
+        }
         .title-container h1 { 
             font-family: 'Cinzel', serif;
             color: #FFD700; 
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.8); 
-            font-size: 22px; 
-        }
-        .about-btn { 
-            background: transparent; 
-            color: #FFD700; 
-            border: 2px solid #FFD700; 
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 0 10px rgba(255,215,0,0.5);
-            cursor: pointer;
+            text-shadow: 0 0 15px rgba(255, 215, 0, 0.9), 0 0 30px rgba(255, 215, 0, 0.6); /* Golden Text Glow */
+            font-size: 26px; 
+            letter-spacing: 2px;
         }
 
-        /* --- Categories / Tags (Dummy for design) --- */
-        .tags-container {
+        /* --- Top Buttons (Pills) --- */
+        .top-buttons {
             display: flex;
+            justify-content: center;
             gap: 10px;
-            margin-bottom: 20px;
-            overflow-x: auto;
-            padding-bottom: 5px;
+            margin-bottom: 25px;
         }
-        .tag {
-            background: #1a1a1a;
-            border: 1px solid #333;
-            color: #ccc;
-            padding: 5px 15px;
-            border-radius: 20px;
+        .top-btn {
+            background: #0a0a0a;
+            border: 2px solid #FFD700;
+            color: #FFD700;
+            padding: 6px 18px;
+            border-radius: 30px; /* Circular pill */
             font-size: 13px;
-            white-space: nowrap;
+            font-weight: 600;
+            box-shadow: 0 0 10px rgba(255,215,0,0.2), inset 0 0 10px rgba(255,215,0,0.1);
+            transition: 0.3s;
         }
-        .tag.active {
+        .top-btn.active {
             background: #FFD700;
-            color: black;
-            border-color: #FFD700;
-            font-weight: bold;
+            color: #000;
+            box-shadow: 0 0 20px rgba(255,215,0,0.8);
         }
 
         /* --- Masonry Grid (2 Columns) --- */
         .notes-grid {
-            column-count: 2; /* Creates 2 columns */
-            column-gap: 12px;
+            column-count: 2; 
+            column-gap: 15px;
             width: 100%;
         }
 
-        /* --- Individual Note Card --- */
+        /* --- Individual Note Card (Heavy Glow) --- */
         .note-item { 
-            background: #111; 
-            border: 1px solid #333;
+            background: #0a0a0a; 
+            border: 2px solid #FFD700; /* Golden Border */
             padding: 15px; 
-            margin-bottom: 12px; 
+            margin-bottom: 15px; 
             border-radius: 15px; 
-            break-inside: avoid; /* Prevents card from breaking in middle */
-            display: inline-block; /* Fix for masonry */
+            break-inside: avoid; 
+            display: inline-block; 
             width: 100%;
             cursor: pointer;
             position: relative;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-            transition: 0.2s;
+            /* Heavy Golden Glow */
+            box-shadow: 0 0 15px rgba(255,215,0,0.3), inset 0 0 10px rgba(255,215,0,0.1); 
+            transition: 0.3s;
         }
         .note-item:hover {
-            border-color: #FFD700;
-            box-shadow: 0 0 15px rgba(255,215,0,0.3);
+            box-shadow: 0 0 25px rgba(255,215,0,0.6), inset 0 0 15px rgba(255,215,0,0.2);
+            transform: translateY(-2px);
         }
         
+        /* Subtle inner light at the top of card */
+        .note-item::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #FFD700, transparent);
+        }
+
         .note-title { 
-            color: #eee; 
+            color: #fff; 
             font-size: 14px; 
             font-weight: 500;
-            margin-bottom: 8px; 
+            margin-bottom: 10px; 
             line-height: 1.4;
             display: -webkit-box;
-            -webkit-line-clamp: 5; /* Limits text to 5 lines */
+            -webkit-line-clamp: 6; 
             -webkit-box-orient: vertical;
             overflow: hidden;
         }
@@ -121,11 +122,14 @@
             display: flex; 
             justify-content: space-between; 
             align-items: center; 
-            margin-top: 10px;
+            margin-top: 12px;
+            border-top: 1px solid rgba(255,215,0,0.2);
+            padding-top: 8px;
         }
         .note-date { 
             font-size: 10px; 
-            color: #888; 
+            color: #FFD700; 
+            text-shadow: 0 0 5px rgba(255,215,0,0.5);
         }
         
         .delete-btn { 
@@ -135,15 +139,20 @@
             cursor: pointer;
             font-size: 14px;
             padding: 5px;
+            transition: 0.2s;
+        }
+        .delete-btn:hover {
+            color: #fff;
+            text-shadow: 0 0 10px #ff4444;
         }
 
         /* --- Floating Action Button (Add Note) --- */
         .fab {
             position: fixed;
-            bottom: 80px;
-            right: 20px;
-            width: 60px;
-            height: 60px;
+            bottom: 90px;
+            right: 25px;
+            width: 65px;
+            height: 65px;
             background: linear-gradient(135deg, #FFD700, #FFA500);
             color: black;
             border-radius: 50%;
@@ -151,94 +160,128 @@
             justify-content: center;
             align-items: center;
             font-size: 28px;
-            box-shadow: 0 4px 15px rgba(255,215,0,0.5);
+            box-shadow: 0 0 20px rgba(255,215,0,0.8), 0 0 40px rgba(255,215,0,0.4);
             cursor: pointer;
             z-index: 99;
             border: none;
+            transition: 0.3s;
         }
+        .fab:hover { transform: scale(1.1); }
 
-        /* --- Bottom Navigation --- */
+        /* --- Bottom Navigation (Only 2 Buttons) --- */
         .bottom-nav {
             position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 250px; /* Small width for 2 buttons */
             background: #0a0a0a;
-            border-top: 1px solid #222;
+            border: 2px solid #FFD700;
+            border-radius: 50px;
             display: flex;
             justify-content: space-around;
-            padding: 10px 0;
+            padding: 12px 0;
+            box-shadow: 0 0 20px rgba(255,215,0,0.4);
             z-index: 100;
         }
         .nav-item {
             display: flex;
             flex-direction: column;
             align-items: center;
-            color: #555;
             text-decoration: none;
-            font-size: 10px;
             gap: 5px;
+            transition: 0.3s;
         }
-        .nav-item i { font-size: 22px; }
-        .nav-item.active { color: #FFD700; text-shadow: 0 0 10px rgba(255,215,0,0.5); }
+        .nav-icon-circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid #555;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #888;
+            font-size: 18px;
+            transition: 0.3s;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.8);
+        }
+        .nav-item span {
+            font-size: 11px;
+            color: #888;
+            font-weight: 500;
+        }
+        
+        /* Golden Active State */
+        .nav-item.active .nav-icon-circle {
+            border-color: #FFD700;
+            color: #FFD700;
+            box-shadow: 0 0 15px rgba(255,215,0,0.8), inset 0 0 10px rgba(255,215,0,0.3);
+            text-shadow: 0 0 10px #FFD700;
+        }
+        .nav-item.active span {
+            color: #FFD700;
+            text-shadow: 0 0 5px rgba(255,215,0,0.5);
+        }
 
-        /* --- Modals (Input, Full Note, About) --- */
+        /* --- Modals --- */
         .modal {
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.9);
+            background: rgba(0,0,0,0.95);
             justify-content: center;
             align-items: center;
             z-index: 1000;
             padding: 20px;
         }
         .modal-content {
-            background: #111;
+            background: #0a0a0a;
             border: 2px solid #FFD700;
             border-radius: 20px;
-            padding: 20px;
+            padding: 25px;
             width: 100%;
             max-width: 400px;
-            box-shadow: 0 0 30px rgba(255,215,0,0.2);
+            box-shadow: 0 0 30px rgba(255,215,0,0.4);
             position: relative;
         }
-        .modal-content h2 { color: #FFD700; margin-bottom: 15px; font-size: 18px; text-align: center;}
+        .modal-content h2 { color: #FFD700; margin-bottom: 20px; font-size: 20px; text-align: center; text-shadow: 0 0 10px #FFD700;}
         
         textarea { 
             width: 100%; 
             height: 150px; 
-            background: #1a1a1a; 
+            background: #111; 
             color: #fff; 
-            border: 1px solid #333; 
+            border: 1px solid #FFD700; 
             padding: 15px; 
             border-radius: 12px; 
-            margin-bottom: 15px; 
+            margin-bottom: 20px; 
             resize: none;
             font-family: 'Poppins', sans-serif;
             font-size: 15px;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.8);
         }
         
         button.save-btn { 
-            background: #FFD700; 
+            background: linear-gradient(90deg, #FFD700, #FFA500); 
             color: #000; 
-            padding: 12px; 
+            padding: 14px; 
             width: 100%; 
             border: none; 
-            border-radius: 10px; 
+            border-radius: 12px; 
             font-weight: bold; 
             font-size: 16px; 
             cursor: pointer;
+            box-shadow: 0 0 15px rgba(255,215,0,0.5);
         }
 
         .full-note-text {
-            color: #ddd;
-            font-size: 15px;
+            color: #eee;
+            font-size: 16px;
             line-height: 1.6;
             white-space: pre-wrap;
             max-height: 60vh;
             overflow-y: auto;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
 
         .close-modal {
@@ -261,22 +304,17 @@
             <i class="fas fa-crown"></i>
             <h1>ABD NOTES</h1>
         </div>
-        <button class="about-btn" onclick="showAbout()">
-            <i class="fas fa-info"></i>
-        </button>
     </div>
 
-    <!-- Tags (Just for design) -->
-    <div class="tags-container">
-        <div class="tag active">All</div>
-        <div class="tag">Personal</div>
-        <div class="tag">Work</div>
-        <div class="tag"><i class="fas fa-pen"></i></div>
+    <!-- Top Buttons (All, Personal, Work, About) -->
+    <div class="top-buttons">
+        <div class="top-btn active">All</div>
+        <div class="top-btn" onclick="showAbout()"><i class="fas fa-info"></i> About</div>
     </div>
 
     <!-- Masonry Grid Container -->
     <div class="notes-grid" id="notesList">
-        <!-- Notes will be generated here by JavaScript -->
+        <!-- Notes will be generated here -->
     </div>
 
     <!-- Floating Add Button -->
@@ -284,23 +322,15 @@
         <i class="fas fa-plus"></i>
     </button>
 
-    <!-- Bottom Navigation -->
+    <!-- Bottom Navigation (Only Notes and Profile) -->
     <div class="bottom-nav">
         <a href="#" class="nav-item active">
-            <i class="fas fa-sticky-note"></i>
+            <div class="nav-icon-circle"><i class="fas fa-sticky-note"></i></div>
             <span>Notes</span>
         </a>
-        <a href="#" class="nav-item">
-            <i class="fas fa-calendar-alt"></i>
-            <span>Calendar</span>
-        </a>
-        <a href="#" class="nav-item">
-            <i class="fas fa-search"></i>
-            <span>Search</span>
-        </a>
-        <a href="#" class="nav-item">
-            <i class="fas fa-box"></i>
-            <span>Templates</span>
+        <a href="#" class="nav-item" onclick="showAbout(); return false;">
+            <div class="nav-icon-circle"><i class="fas fa-user"></i></div>
+            <span>Profile</span>
         </a>
     </div>
 
@@ -310,7 +340,7 @@
             <button class="close-modal" onclick="closeAddModal()"><i class="fas fa-times"></i></button>
             <h2>New Note</h2>
             <textarea id="noteInput" placeholder="Write your note here..."></textarea>
-            <button class="save-btn" onclick="saveNote()">SAVE</button>
+            <button class="save-btn" onclick="saveNote()">SAVE NOTE</button>
         </div>
     </div>
 
@@ -318,21 +348,21 @@
     <div class="modal" id="viewModal">
         <div class="modal-content">
             <button class="close-modal" onclick="closeViewModal()"><i class="fas fa-times"></i></button>
-            <h2 id="viewTitle">Note</h2>
+            <h2 id="viewTitle">Note Details</h2>
             <div class="full-note-text" id="viewText"></div>
-            <span style="color:#888; font-size:12px;" id="viewDate"></span>
+            <span style="color:#FFD700; font-size:12px; text-shadow:0 0 5px #FFD700;" id="viewDate"></span>
         </div>
     </div>
 
     <!-- ABOUT MODAL -->
     <div class="modal" id="aboutModal">
         <div class="modal-content" style="text-align:center;">
-            <i class="fas fa-crown" style="color: #FFD700; font-size: 40px; margin-bottom: 15px; text-shadow: 0 0 15px #FFD700;"></i>
+            <i class="fas fa-crown" style="color: #FFD700; font-size: 50px; margin-bottom: 15px; text-shadow: 0 0 20px #FFD700;"></i>
             <h2>ABD NOTES</h2>
-            <p style="color:#ccc; font-size:14px; margin-bottom:20px; line-height:1.6;">
+            <p style="color:#ccc; font-size:14px; margin-bottom:25px; line-height:1.6;">
                 This premium app is proudly developed by <br>
-                <strong style="color:#FFD700;">ABD AI Studio</strong><br>
-                Your trusted partner.
+                <strong style="color:#FFD700; font-size:16px; text-shadow:0 0 10px #FFD700;">ABD AI Studio</strong><br>
+                Your trusted partner in digital innovation.
             </p>
             <button class="save-btn" onclick="closeAbout()">CLOSE</button>
         </div>
@@ -365,7 +395,7 @@
 
         // --- Delete Note ---
         function deleteNote(event, index) {
-            event.stopPropagation(); // Prevent opening the note
+            event.stopPropagation(); 
             if(confirm("Delete this note?")) {
                 notes.splice(index, 1);
                 localStorage.setItem('abdNotes', JSON.stringify(notes));
@@ -376,7 +406,6 @@
         // --- View Full Note ---
         function openViewModal(index) {
             let note = notes[index];
-            document.getElementById('viewTitle').innerText = "Note Details";
             document.getElementById('viewText').innerText = note.text;
             document.getElementById('viewDate').innerText = "📅 " + note.date;
             document.getElementById('viewModal').style.display = 'flex';
@@ -385,13 +414,13 @@
             document.getElementById('viewModal').style.display = 'none';
         }
 
-        // --- Display Notes in Masonry Grid ---
+        // --- Display Notes ---
         function displayNotes() {
             let list = document.getElementById('notesList');
             list.innerHTML = "";
             
             if(notes.length === 0) { 
-                list.innerHTML = "<p style='color:gray; text-align:center; width:100%; column-span: all;'>No notes yet. Tap + to add.</p>"; 
+                list.innerHTML = "<p style='color:#888; text-align:center; width:100%; column-span: all; margin-top:20px;'>No notes yet. Tap + to add.</p>"; 
                 return; 
             }
             
@@ -400,7 +429,6 @@
                 div.className = 'note-item';
                 div.setAttribute('onclick', `openViewModal(${index})`);
                 
-                // Generate a random emoji for the note
                 let emojis = ['📝', '💡', '🔥', '😎', '💼', '📚', '🚀', '✨'];
                 let randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
 
@@ -409,7 +437,7 @@
                         ${randomEmoji} ${note.text}
                     </div>
                     <div class="note-footer">
-                        <span class="note-date">${note.date}</span>
+                        <span class="note-date">📅 ${note.date}</span>
                         <button class="delete-btn" onclick="deleteNote(event, ${index})">
                             <i class="fas fa-trash-alt"></i>
                         </button>
