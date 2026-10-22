@@ -80,7 +80,7 @@
             align-items: center;
             gap: 8px;
             cursor: pointer;
-            opacity: 0.9;
+            opacity: 0.7; /* Dim inactive */
             transition: 0.3s;
         }
         .status-wrapper.active {
@@ -92,12 +92,15 @@
             height: 70px;
             border-radius: 50%;
             padding: 3px; 
-            /* ALL RINGS ALWAYS GOLDEN GLOW */
+            /* ALWAYS GOLDEN GLOW */
             background: linear-gradient(45deg, #FFD700, #FFA500, #FFD700); 
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.8), 0 0 30px rgba(255, 165, 0, 0.5); 
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.6), 0 0 25px rgba(255, 165, 0, 0.3); 
             display: flex;
             justify-content: center;
             align-items: center;
+        }
+        .status-wrapper.active .status-ring {
+            box-shadow: 0 0 20px rgba(255, 215, 0, 1), 0 0 40px rgba(255, 165, 0, 0.6); 
         }
         .status-circle {
             width: 100%;
@@ -290,10 +293,10 @@
         </button>
     </div>
 
-    <!-- ================= HOME SCREEN (Bade Golden Buttons Ke Saath) ================= -->
+    <!-- ================= HOME SCREEN ================= -->
     <div id="homeScreen" style="display: block;">
         
-        <!-- 4 Status Buttons (Home Par Wapas) -->
+        <!-- 4 Status Buttons -->
         <div class="status-container">
             <div class="status-wrapper active" id="home-tab-Plans" onclick="setHomeCategory('Plans')">
                 <div class="status-ring"><div class="status-circle">Plans</div></div>
@@ -323,10 +326,10 @@
         </div>
     </div>
 
-    <!-- ================= NOTES SCREEN (Purane Notes) ================= -->
+    <!-- ================= NOTES SCREEN ================= -->
     <div id="notesScreen" style="display: none;">
         
-        <!-- 4 Status Buttons (Notes Par Bhi Wahi) -->
+        <!-- 4 Status Buttons -->
         <div class="status-container">
             <div class="status-wrapper active" id="tab-Plans" onclick="switchTab('Plans')">
                 <div class="status-ring"><div class="status-circle">Plans</div></div>
@@ -346,13 +349,11 @@
             </div>
         </div>
 
-        <!-- Saved Notes Header -->
         <div class="notes-header">
             <h2><i class="fas fa-file-alt"></i> <span id="categoryTitle">Plans</span></h2>
             <span id="noteCount" style="color: #FFD700;">0 Notes</span>
         </div>
         
-        <!-- Notes Grid -->
         <div class="notes-grid" id="notesList"></div>
     </div>
 
@@ -364,7 +365,7 @@
         <a class="nav-item" id="nav-notes" onclick="showNotesApp()">
             <i class="fas fa-sticky-note"></i><span>Notes</span>
         </a>
-        <a class="nav-item">
+        <a class="nav-item" onclick="alert('Profile feature coming soon!')">
             <i class="fas fa-user"></i><span>Profile</span>
         </a>
     </div>
@@ -416,10 +417,11 @@
             document.getElementById('nav-home').classList.remove('active');
             document.getElementById('nav-notes').classList.add('active');
             
-            switchTab(currentCategory); 
+            // Show notes for the currently selected home category
+            switchTab(homeCategory); 
         }
 
-        // --- Home Screen Category Selection (Golden Rings) ---
+        // --- Home Screen Category Selection ---
         function setHomeCategory(cat) {
             homeCategory = cat;
             
@@ -449,8 +451,7 @@
             document.getElementById('noteInput').value = "";
             alert("Note Saved Successfully!");
             
-            showNotesApp(); 
-            switchTab(homeCategory);
+            showNotesApp(); // Go to notes screen
         }
 
         // --- Tab Switch Logic (Notes Screen) ---
@@ -513,7 +514,4 @@
                     <div class="note-footer">
                         <span class="note-date">📅 ${note.date}</span>
                         <button class="delete-btn" onclick="deleteNote(event, ${originalIndex})">
-                            <i class="fas fa-trash-alt"></i>
-                        </button>
-                    </div>
-       
+                            <i class="fas 
