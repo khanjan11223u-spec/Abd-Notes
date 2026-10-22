@@ -20,12 +20,12 @@
             padding-bottom: 100px;
         }
 
-        /* --- Header Section (Golden Glow) --- */
+        /* --- Header Section --- */
         .header { 
             display: flex; 
             justify-content: space-between; 
             align-items: center; 
-            margin-bottom: 30px; 
+            margin-bottom: 25px; 
             border-bottom: 2px solid #FFD700;
             padding-bottom: 15px;
             box-shadow: 0 2px 10px rgba(255,215,0,0.3);
@@ -51,13 +51,13 @@
             text-align: center;
         }
 
-        /* --- About Button --- */
-        .about-btn { 
+        /* --- About Button (Top Right) --- */
+        .about-btn-top { 
             background: transparent; 
             color: #FFD700; 
             border: 2px solid #FFD700; 
-            width: 50px;
-            height: 50px;
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
             display: flex;
             justify-content: center;
@@ -65,7 +65,52 @@
             font-size: 20px;
             box-shadow: 0 0 15px rgba(255,215,0,0.5);
             cursor: pointer;
-            transition: 0.3s;
+        }
+
+        /* --- 4 Circular Buttons with Status Ring --- */
+        .status-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            padding: 0 10px;
+        }
+        .status-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+        /* Instagram/WhatsApp Style Glowing Ring */
+        .status-ring {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            padding: 3px; /* Thickness of the ring */
+            background: linear-gradient(45deg, #FFD700, #FFA500, #FFD700); /* Golden Gradient Ring */
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.8), 0 0 30px rgba(255, 165, 0, 0.5); /* Heavy Glow */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .status-circle {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background-color: #000; /* Black inside */
+            border: 2px solid #000; /* Gap between ring and circle */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        .status-label {
+            color: #fff;
+            font-size: 12px;
+            font-weight: 500;
+            text-shadow: 0 0 5px #FFD700;
         }
 
         /* --- Note Input Card --- */
@@ -80,9 +125,9 @@
 
         textarea { 
             width: 100%; 
-            height: 120px; 
+            height: 100px; 
             background: #111; 
-            color: #FFD700; /* Golden Text */
+            color: #FFD700; 
             border: 1px solid #444; 
             padding: 15px; 
             border-radius: 12px; 
@@ -112,16 +157,14 @@
         .notes-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
         .notes-header h2 { color: #FFD700; font-size: 22px; display: flex; align-items: center; gap: 10px; text-shadow: 0 0 10px #FFD700;}
         
-        /* 2 Column Grid */
         .notes-grid {
             column-count: 2;
             column-gap: 12px;
         }
 
-        /* Chhota Card */
         .note-item { 
             background: #111; 
-            border: 1px solid #FFD700; /* Golden Border */
+            border: 1px solid #FFD700; 
             padding: 12px; 
             margin-bottom: 12px; 
             border-radius: 12px; 
@@ -135,13 +178,13 @@
         .note-item:hover { box-shadow: 0 0 15px rgba(255,215,0,0.4); }
 
         .note-title { 
-            color: #FFD700; /* Golden Text */
+            color: #FFD700; 
             font-size: 14px; 
             font-weight: 500;
             margin-bottom: 8px; 
             line-height: 1.4;
             display: -webkit-box;
-            -webkit-line-clamp: 5; /* Max 5 lines */
+            -webkit-line-clamp: 5; 
             -webkit-box-orient: vertical;
             overflow: hidden;
         }
@@ -192,7 +235,7 @@
         .nav-item i { font-size: 20px; }
         .nav-item.active { color: #FFD700; text-shadow: 0 0 10px #FFD700; }
 
-        /* --- Dialogs --- */
+        /* --- Modals --- */
         .modal {
             display: none;
             position: fixed;
@@ -234,9 +277,29 @@
                 <p>IDEAS • PLANS • DREAMS</p>
             </div>
         </div>
-        <button class="about-btn" onclick="showAbout()">
+        <button class="about-btn-top" onclick="showAbout()">
             <i class="fas fa-info"></i>
         </button>
+    </div>
+
+    <!-- 4 Status Buttons with Glowing Rings -->
+    <div class="status-container">
+        <div class="status-wrapper">
+            <div class="status-ring"><div class="status-circle">Plans</div></div>
+            <span class="status-label">Plans</span>
+        </div>
+        <div class="status-wrapper">
+            <div class="status-ring"><div class="status-circle">Dreams</div></div>
+            <span class="status-label">Dreams</span>
+        </div>
+        <div class="status-wrapper">
+            <div class="status-ring"><div class="status-circle">Work</div></div>
+            <span class="status-label">Work</span>
+        </div>
+        <div class="status-wrapper" onclick="showAbout()">
+            <div class="status-ring"><div class="status-circle">About</div></div>
+            <span class="status-label">About</span>
+        </div>
     </div>
 
     <!-- Note Input -->
@@ -253,7 +316,6 @@
         <span id="noteCount" style="color: #FFD700;">0 Notes</span>
     </div>
     
-    <!-- Yahan TidyNotes wala Grid hai -->
     <div class="notes-grid" id="notesList"></div>
 
     <!-- Bottom Nav -->
@@ -343,7 +405,6 @@
                 div.className = 'note-item';
                 div.setAttribute('onclick', `openFullNote(${index})`);
                 
-                // Emoji add karne ke liye
                 let emojis = ['📝', '💡', '🔥', '😎', '💼', '📚', '🚀', '✨'];
                 let randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
 
@@ -368,4 +429,4 @@
         displayNotes();
     </script>
 </body>
-                                             </html>
+            </html>
