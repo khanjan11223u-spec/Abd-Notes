@@ -80,7 +80,7 @@
             align-items: center;
             gap: 8px;
             cursor: pointer;
-            opacity: 0.6; /* Inactive look */
+            opacity: 0.9;
             transition: 0.3s;
         }
         .status-wrapper.active {
@@ -92,15 +92,12 @@
             height: 70px;
             border-radius: 50%;
             padding: 3px; 
+            /* ALL RINGS ALWAYS GOLDEN GLOW */
             background: linear-gradient(45deg, #FFD700, #FFA500, #FFD700); 
             box-shadow: 0 0 15px rgba(255, 215, 0, 0.8), 0 0 30px rgba(255, 165, 0, 0.5); 
             display: flex;
             justify-content: center;
             align-items: center;
-        }
-        .status-wrapper:not(.active) .status-ring {
-            background: linear-gradient(45deg, #555, #777, #555); /* Grey ring for inactive */
-            box-shadow: none;
         }
         .status-circle {
             width: 100%;
@@ -134,7 +131,7 @@
 
         textarea { 
             width: 100%; 
-            height: 100px; 
+            height: 150px; 
             background: #111; 
             color: #FFD700; 
             border: 1px solid #444; 
@@ -143,6 +140,7 @@
             margin-bottom: 15px; 
             resize: none;
             font-family: 'Poppins', sans-serif;
+            font-size: 16px;
         }
 
         button.save-btn { 
@@ -240,6 +238,7 @@
             text-decoration: none;
             font-size: 12px;
             gap: 5px;
+            cursor: pointer;
         }
         .nav-item i { font-size: 20px; }
         .nav-item.active { color: #FFD700; text-shadow: 0 0 10px #FFD700; }
@@ -277,7 +276,7 @@
 </head>
 <body>
 
-    <!-- Header -->
+    <!-- Header (Always Visible) -->
     <div class="header">
         <div class="title-container">
             <i class="fas fa-crown"></i>
@@ -291,52 +290,69 @@
         </button>
     </div>
 
-    <!-- 4 Status Buttons -->
-    <div class="status-container">
-        <div class="status-wrapper active" id="tab-plans" onclick="switchTab('Plans')">
-            <div class="status-ring"><div class="status-circle">Plans</div></div>
-            <span class="status-label">Plans</span>
-        </div>
-        <div class="status-wrapper" id="tab-dreams" onclick="switchTab('Dreams')">
-            <div class="status-ring"><div class="status-circle">Dreams</div></div>
-            <span class="status-label">Dreams</span>
-        </div>
-        <div class="status-wrapper" id="tab-work" onclick="switchTab('Work')">
-            <div class="status-ring"><div class="status-circle">Work</div></div>
-            <span class="status-label">Work</span>
-        </div>
-        <div class="status-wrapper" onclick="showAbout()">
-            <div class="status-ring"><div class="status-circle">About</div></div>
-            <span class="status-label">About</span>
+    <!-- ================= HOME SCREEN (SIRF NEW NOTE LIKHNE KE LIYE) ================= -->
+    <div id="homeScreen" style="display: block;">
+        
+        <!-- Note Input Card -->
+        <div class="card" style="margin-top: 30px;">
+            <h3 style="color:#FFD700; margin-bottom:15px; font-size:18px; text-align:center;">Create New Note</h3>
+            <textarea id="noteInput" placeholder="Yahan apni nayi note likhein..."></textarea>
+            
+            <!-- Category Selection Buttons for Home -->
+            <div style="display:flex; justify-content:space-between; margin-bottom:15px;">
+                <button class="cat-btn active-cat" onclick="setHomeCategory('Plans')" style="background:transparent; border:1px solid #FFD700; color:#FFD700; padding:8px; border-radius:5px; flex:1; margin:0 5px;">Plans</button>
+                <button class="cat-btn" onclick="setHomeCategory('Dreams')" style="background:transparent; border:1px solid #444; color:#888; padding:8px; border-radius:5px; flex:1; margin:0 5px;">Dreams</button>
+                <button class="cat-btn" onclick="setHomeCategory('Work')" style="background:transparent; border:1px solid #444; color:#888; padding:8px; border-radius:5px; flex:1; margin:0 5px;">Work</button>
+            </div>
+
+            <button class="save-btn" onclick="saveNoteFromHome()">
+                <i class="fas fa-plus"></i> SAVE NEW NOTE
+            </button>
         </div>
     </div>
 
-    <!-- Note Input -->
-    <div class="card">
-        <h3 id="currentCategoryTitle" style="color:#FFD700; margin-bottom:10px; font-size:16px;">Writing in: <span style="color:#fff;">Plans</span></h3>
-        <textarea id="noteInput" placeholder="Yahan apna plan likhein..."></textarea>
-        <button class="save-btn" onclick="saveNote()">
-            <i class="fas fa-save"></i> SAVE NOTE
-        </button>
-    </div>
+    <!-- ================= NOTES SCREEN (PURANE NOTES DEKHNE KE LIYE) ================= -->
+    <div id="notesScreen" style="display: none;">
+        
+        <!-- 4 Status Buttons -->
+        <div class="status-container">
+            <div class="status-wrapper active" id="tab-Plans" onclick="switchTab('Plans')">
+                <div class="status-ring"><div class="status-circle">Plans</div></div>
+                <span class="status-label">Plans</span>
+            </div>
+            <div class="status-wrapper" id="tab-Dreams" onclick="switchTab('Dreams')">
+                <div class="status-ring"><div class="status-circle">Dreams</div></div>
+                <span class="status-label">Dreams</span>
+            </div>
+            <div class="status-wrapper" id="tab-Work" onclick="switchTab('Work')">
+                <div class="status-ring"><div class="status-circle">Work</div></div>
+                <span class="status-label">Work</span>
+            </div>
+            <div class="status-wrapper" onclick="showAbout()">
+                <div class="status-ring"><div class="status-circle">About</div></div>
+                <span class="status-label">About</span>
+            </div>
+        </div>
 
-    <!-- Saved Notes -->
-    <div class="notes-header">
-        <h2><i class="fas fa-file-alt"></i> Saved Notes</h2>
-        <span id="noteCount" style="color: #FFD700;">0 Notes</span>
+        <!-- Saved Notes Header -->
+        <div class="notes-header">
+            <h2><i class="fas fa-file-alt"></i> <span id="categoryTitle">Plans</span></h2>
+            <span id="noteCount" style="color: #FFD700;">0 Notes</span>
+        </div>
+        
+        <!-- Notes Grid -->
+        <div class="notes-grid" id="notesList"></div>
     </div>
-    
-    <div class="notes-grid" id="notesList"></div>
 
     <!-- Bottom Nav -->
     <div class="bottom-nav">
-        <a href="#" class="nav-item active">
+        <a class="nav-item active" id="nav-home" onclick="showHome()">
             <i class="fas fa-home"></i><span>Home</span>
         </a>
-        <a href="#" class="nav-item">
+        <a class="nav-item" id="nav-notes" onclick="showNotesApp()">
             <i class="fas fa-sticky-note"></i><span>Notes</span>
         </a>
-        <a href="#" class="nav-item">
+        <a class="nav-item">
             <i class="fas fa-user"></i><span>Profile</span>
         </a>
     </div>
@@ -368,44 +384,68 @@
     </div>
 
     <script>
-        // Category track karne ke liye variable
-        let currentCategory = 'Plans'; 
+        let currentCategory = 'Plans'; // For Notes Screen
+        let homeCategory = 'Plans'; // For Home Screen Input
         let allNotes = JSON.parse(localStorage.getItem('abdNotesData')) || [];
 
-        // --- Tab Switch Logic ---
-        function switchTab(category) {
-            currentCategory = category;
+        // --- Navigation Logic ---
+        function showHome() {
+            document.getElementById('homeScreen').style.display = 'block';
+            document.getElementById('notesScreen').style.display = 'none';
             
-            // Update Active Class on Buttons
-            document.querySelectorAll('.status-wrapper').forEach(el => el.classList.remove('active'));
-            document.getElementById('tab-' + category.toLowerCase()).classList.add('active');
-
-            // Update Input Title
-            document.getElementById('currentCategoryTitle').innerHTML = `Writing in: <span style="color:#fff;">${category}</span>`;
-            
-            // Update Placeholder
-            let placeholders = {
-                'Plans': 'Yahan apna plan likhein...',
-                'Dreams': 'Yahan apna dream likhein...',
-                'Work': 'Yahan apna work likhein...'
-            };
-            document.getElementById('noteInput').placeholder = placeholders[category];
-
-            displayNotes();
+            document.getElementById('nav-home').classList.add('active');
+            document.getElementById('nav-notes').classList.remove('active');
         }
 
-        // --- Save Note ---
-        function saveNote() {
+        function showNotesApp() {
+            document.getElementById('homeScreen').style.display = 'none';
+            document.getElementById('notesScreen').style.display = 'block';
+            
+            document.getElementById('nav-home').classList.remove('active');
+            document.getElementById('nav-notes').classList.add('active');
+            
+            switchTab('Plans'); 
+        }
+
+        // --- Home Screen Category Selection ---
+        function setHomeCategory(cat) {
+            homeCategory = cat;
+            let btns = document.querySelectorAll('.cat-btn');
+            btns.forEach(btn => {
+                btn.style.border = '1px solid #444';
+                btn.style.color = '#888';
+            });
+            event.target.style.border = '1px solid #FFD700';
+            event.target.style.color = '#FFD700';
+        }
+
+        // --- Save Note from Home ---
+        function saveNoteFromHome() {
             let text = document.getElementById('noteInput').value;
             if(text.trim() === "") { alert("Note khali hai!"); return; }
             
             let now = new Date();
             let dateStr = now.getDate() + ' ' + now.toLocaleString('default', { month: 'short' }) + ' ' + now.getFullYear();
             
-            // Save with category
-            allNotes.unshift({ text: text, date: dateStr, category: currentCategory }); 
+            allNotes.unshift({ text: text, date: dateStr, category: homeCategory }); 
             localStorage.setItem('abdNotesData', JSON.stringify(allNotes));
+            
             document.getElementById('noteInput').value = "";
+            alert("Note Saved Successfully!");
+            
+            // Go to Notes screen to see it
+            showNotesApp(); 
+            switchTab(homeCategory);
+        }
+
+        // --- Tab Switch Logic (Notes Screen) ---
+        function switchTab(category) {
+            currentCategory = category;
+            
+            document.querySelectorAll('.status-wrapper').forEach(el => el.classList.remove('active'));
+            document.getElementById('tab-' + category).classList.add('active');
+
+            document.getElementById('categoryTitle').innerText = category;
             displayNotes();
         }
 
@@ -434,7 +474,6 @@
             let count = document.getElementById('noteCount');
             list.innerHTML = "";
             
-            // Filter notes based on active category
             let filteredNotes = allNotes.filter(note => note.category === currentCategory);
             count.innerText = filteredNotes.length + " Notes";
             
@@ -449,11 +488,7 @@
                 div.className = 'note-item';
                 div.setAttribute('onclick', `openFullNote(${JSON.stringify(note).replace(/"/g, '&quot;')})`);
                 
-                let emojis = {
-                    'Plans': '📝',
-                    'Dreams': '🚀',
-                    'Work': '💼'
-                };
+                let emojis = { 'Plans': '📝', 'Dreams': '🚀', 'Work': '💼' };
                 let emoji = emojis[note.category] || '📝';
 
                 div.innerHTML = `
@@ -474,8 +509,8 @@
         function showAbout() { document.getElementById('aboutDialog').style.display = 'flex'; }
         function closeAbout() { document.getElementById('aboutDialog').style.display = 'none'; }
 
-        // Initialize
-        switchTab('Plans');
+        // Initialize: Home Screen
+        showHome();
     </script>
 </body>
     </html>
