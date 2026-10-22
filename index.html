@@ -17,298 +17,100 @@
             color: #fff; 
             font-family: 'Poppins', sans-serif;
             padding: 20px;
-            padding-bottom: 120px; /* Space for bottom nav */
+            padding-bottom: 120px;
             user-select: none;
         }
 
-        /* --- Header Section --- */
+        /* --- Header --- */
         .header { 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            margin-bottom: 25px; 
-            border-bottom: 2px solid #FFD700;
-            padding-bottom: 15px;
-            box-shadow: 0 2px 10px rgba(255,215,0,0.3);
+            display: flex; justify-content: space-between; align-items: center; 
+            margin-bottom: 25px; border-bottom: 2px solid #FFD700; padding-bottom: 15px;
         }
-        .title-container {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .title-container i { color: #FFD700; font-size: 30px; text-shadow: 0 0 15px #FFD700; }
-        .title-container h1 { 
-            font-family: 'Cinzel', serif;
-            color: #FFD700; 
-            text-shadow: 0 0 15px rgba(255, 215, 0, 0.8); 
-            font-size: 26px; 
-            letter-spacing: 1px;
-        }
-        .title-container p {
-            font-size: 10px;
-            letter-spacing: 2px;
-            color: #ccc;
-            margin-top: 2px;
-            text-align: center;
-        }
+        .title-container { display: flex; align-items: center; gap: 10px; }
+        .title-container i { color: #FFD700; font-size: 30px; }
+        .title-container h1 { font-family: 'Cinzel', serif; color: #FFD700; font-size: 26px; }
+        .title-container p { font-size: 10px; letter-spacing: 2px; color: #ccc; margin-top: 2px; }
 
-        /* --- 4 Circular Buttons --- */
-        .status-container {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 25px;
-            padding: 0 5px;
-        }
-        .status-wrapper {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-            opacity: 0.8;
-            transition: 0.3s;
-        }
-        .status-wrapper.active {
-            opacity: 1;
-            transform: scale(1.05);
-        }
+        /* --- Top Buttons (Full High Golden) --- */
+        .status-container { display: flex; justify-content: space-between; margin-bottom: 25px; padding: 0 5px; }
+        .status-wrapper { display: flex; flex-direction: column; align-items: center; gap: 8px; cursor: pointer; }
         .status-ring {
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            padding: 3px; 
+            width: 70px; height: 70px; border-radius: 50%; padding: 3px; 
             background: linear-gradient(45deg, #FFD700, #FFA500, #FFD700); 
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.6), 0 0 25px rgba(255, 165, 0, 0.3); 
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .status-wrapper.active .status-ring {
-            box-shadow: 0 0 20px rgba(255, 215, 0, 1), 0 0 40px rgba(255, 165, 0, 0.6); 
+            /* Full High Golden Glow for ALL */
+            box-shadow: 0 0 25px rgba(255, 215, 0, 1), 0 0 50px rgba(255, 165, 0, 0.8); 
+            display: flex; justify-content: center; align-items: center;
         }
         .status-circle {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background-color: #000; 
-            border: 2px solid #000; 
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #fff;
-            font-size: 12px;
-            font-weight: 500;
+            width: 100%; height: 100%; border-radius: 50%; background-color: #000; 
+            display: flex; justify-content: center; align-items: center;
+            color: #fff; font-size: 12px; font-weight: 500;
         }
-        .status-label {
-            color: #fff;
-            font-size: 12px;
-            font-weight: 500;
-            text-shadow: 0 0 5px #FFD700;
-        }
+        .status-label { color: #fff; font-size: 12px; font-weight: 500; }
 
-        /* --- Note Input Card --- */
+        /* --- Cards & Inputs --- */
         .card { 
-            background: linear-gradient(145deg, #1a1a1a, #0a0a0a);
-            border: 2px solid #FFD700; 
-            border-radius: 20px; 
-            padding: 20px; 
-            margin-bottom: 25px; 
-            box-shadow: 0 0 15px rgba(255,215,0,0.2), inset 0 0 10px rgba(255,215,0,0.1); 
+            background: #0a0a0a; border: 2px solid #FFD700; border-radius: 20px; 
+            padding: 20px; margin-bottom: 25px; 
         }
-
         textarea { 
-            width: 100%; 
-            height: 120px; 
-            background: #111; 
-            color: #FFD700; 
-            border: 1px solid #444; 
-            padding: 15px; 
-            border-radius: 12px; 
-            margin-bottom: 15px; 
-            resize: none;
-            font-family: 'Poppins', sans-serif;
-            font-size: 16px;
+            width: 100%; height: 120px; background: #111; color: #FFD700; 
+            border: 1px solid #444; padding: 15px; border-radius: 12px; 
+            margin-bottom: 15px; resize: none; font-size: 16px;
         }
-
         button.save-btn { 
-            background: linear-gradient(90deg, #FFD700, #FFA500); 
-            color: #000; 
-            padding: 15px; 
-            width: 100%; 
-            border: none; 
-            border-radius: 12px; 
-            font-weight: bold; 
-            font-size: 16px; 
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-            box-shadow: 0 5px 15px rgba(255,215,0,0.3);
+            background: #FFD700; color: #000; padding: 15px; width: 100%; 
+            border: none; border-radius: 12px; font-weight: bold; font-size: 16px; cursor: pointer;
+            display: flex; justify-content: center; align-items: center; gap: 10px;
         }
 
-        /* --- Saved Notes --- */
+        /* --- Notes Grid --- */
         .notes-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
-        .notes-header h2 { color: #FFD700; font-size: 22px; display: flex; align-items: center; gap: 10px; text-shadow: 0 0 10px #FFD700;}
-        
-        .notes-grid {
-            column-count: 2;
-            column-gap: 12px;
-        }
-
+        .notes-header h2 { color: #FFD700; font-size: 22px; display: flex; align-items: center; gap: 10px; }
+        .notes-grid { column-count: 2; column-gap: 12px; }
         .note-item { 
-            background: #111; 
-            border: 1px solid #FFD700; 
-            padding: 12px; 
-            margin-bottom: 12px; 
-            border-radius: 12px; 
-            break-inside: avoid;
-            display: inline-block;
-            width: 100%;
+            background: #111; border: 1px solid #FFD700; padding: 12px; 
+            margin-bottom: 12px; border-radius: 12px; break-inside: avoid; display: inline-block; width: 100%;
             cursor: pointer;
-            box-shadow: 0 0 10px rgba(255,215,0,0.15);
         }
+        .note-title { color: #FFD700; font-size: 14px; font-weight: 500; margin-bottom: 8px; }
+        .note-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; border-top: 1px solid #333; padding-top: 8px; }
+        .delete-btn { background: transparent; color: #ff4444; border: none; cursor: pointer; font-size: 14px; }
 
-        .note-title { 
-            color: #FFD700; 
-            font-size: 14px; 
-            font-weight: 500;
-            margin-bottom: 8px; 
-            line-height: 1.4;
-            display: -webkit-box;
-            -webkit-line-clamp: 5; 
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-        
-        .note-footer { 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            margin-top: 10px;
-            border-top: 1px solid rgba(255,215,0,0.2);
-            padding-top: 8px;
-        }
-        .note-date { font-size: 10px; color: #888; }
-        
-        .delete-btn { 
-            background: transparent; 
-            color: #ff4444; 
-            border: none;
-            cursor: pointer;
-            font-size: 14px;
-        }
-
-        /* ================= BOTTOM NAVIGATION (Gol Buttons) ================= */
+        /* ================= BOTTOM NAV (Full High Golden) ================= */
         .bottom-nav {
-            position: fixed;
-            bottom: 20px; /* Thoda upar */
-            left: 50%;
-            transform: translateX(-50%);
-            width: 85%;
-            background: transparent; /* Pura black box hataya */
-            display: flex;
-            justify-content: space-around;
-            padding: 0;
-            z-index: 100;
+            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+            width: 85%; display: flex; justify-content: space-around; z-index: 100;
         }
-
-        .nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-decoration: none;
-            gap: 6px;
-            cursor: pointer;
-            opacity: 0.7;
-            transition: 0.3s;
-        }
-
-        .nav-item.active {
-            opacity: 1;
-            transform: scale(1.1);
-        }
-
-        /* Gol Ring Jaisa Design */
+        .nav-item { display: flex; flex-direction: column; align-items: center; gap: 6px; cursor: pointer; }
         .nav-icon-circle {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
+            width: 60px; height: 60px; border-radius: 50%; padding: 3px; 
             background: linear-gradient(45deg, #FFD700, #FFA500, #FFD700);
-            padding: 3px; 
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.6); /* Glowing Light */
+            /* Full High Golden Glow for ALL */
+            box-shadow: 0 0 25px rgba(255, 215, 0, 1), 0 0 50px rgba(255, 165, 0, 0.8);
+            display: flex; justify-content: center; align-items: center;
         }
-
-        .nav-item.active .nav-icon-circle {
-            box-shadow: 0 0 25px rgba(255, 215, 0, 1), 0 0 40px rgba(255, 165, 0, 0.6); /* Zyada tez glow */
-        }
-
-        /* Andar ka Kaala Hissa */
         .nav-icon-inner {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: #000;
-            border: 2px solid #000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #fff;
-            font-size: 22px;
+            width: 100%; height: 100%; border-radius: 50%; background: #000;
+            display: flex; justify-content: center; align-items: center; color: #fff; font-size: 22px;
         }
-
-        .nav-item.active .nav-icon-inner {
-            color: #FFD700;
-            text-shadow: 0 0 10px #FFD700;
-        }
-
-        .nav-label {
-            color: #fff;
-            font-size: 11px;
-            font-weight: 500;
-        }
-        .nav-item.active .nav-label {
-            color: #FFD700;
-            text-shadow: 0 0 5px #FFD700;
-        }
+        .nav-label { color: #fff; font-size: 11px; font-weight: 500; }
 
         /* --- Modals --- */
         .modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.9);
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            padding: 20px;
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9); justify-content: center; align-items: center; z-index: 1000;
         }
         .modal-content {
-            background: #000;
-            border: 2px solid #FFD700;
-            border-radius: 20px;
-            padding: 25px;
-            width: 100%;
-            max-width: 400px;
-            box-shadow: 0 0 30px rgba(255,215,0,0.5);
-            position: relative;
+            background: #000; border: 2px solid #FFD700; border-radius: 20px; padding: 25px;
+            width: 90%; max-width: 400px; text-align: center;
         }
-        .modal-content h2 { color: #FFD700; margin-bottom: 20px; font-size: 22px; text-align: center; text-shadow: 0 0 10px #FFD700;}
-        .close-modal {
-            position: absolute;
-            top: 10px; right: 15px;
-            color: #ff4444; font-size: 24px;
-            cursor: pointer; background: none; border: none;
-        }
-        .full-note-text { color: #FFD700; font-size: 16px; line-height: 1.6; white-space: pre-wrap; max-height: 60vh; overflow-y: auto; margin-bottom: 20px; }
+        .modal-content h2 { color: #FFD700; margin-bottom: 15px; }
+        .close-modal { position: absolute; top: 10px; right: 15px; color: #ff4444; font-size: 24px; cursor: pointer; background: none; border: none; }
     </style>
 </head>
 <body>
 
-    <!-- Header -->
     <div class="header">
         <div class="title-container">
             <i class="fas fa-crown"></i>
@@ -317,24 +119,23 @@
                 <p>IDEAS • PLANS • DREAMS</p>
             </div>
         </div>
-        <button class="about-btn-top" onclick="showAbout()" style="background: transparent; color: #FFD700; border: 2px solid #FFD700; width: 45px; height: 45px; border-radius: 50%; box-shadow: 0 0 15px rgba(255,215,0,0.5); cursor: pointer;">
+        <button onclick="showAbout()" style="background: transparent; color: #FFD700; border: 2px solid #FFD700; width: 45px; height: 45px; border-radius: 50%; cursor: pointer; box-shadow: 0 0 20px #FFD700;">
             <i class="fas fa-info"></i>
         </button>
     </div>
 
-    <!-- ================= HOME SCREEN ================= -->
-    <div id="homeScreen" style="display: block;">
-        
+    <!-- HOME SCREEN -->
+    <div id="homeScreen">
         <div class="status-container">
-            <div class="status-wrapper active" id="home-tab-Plans" onclick="setHomeCategory('Plans')">
+            <div class="status-wrapper" onclick="setHomeCategory('Plans')">
                 <div class="status-ring"><div class="status-circle">Plans</div></div>
                 <span class="status-label">Plans</span>
             </div>
-            <div class="status-wrapper" id="home-tab-Dreams" onclick="setHomeCategory('Dreams')">
+            <div class="status-wrapper" onclick="setHomeCategory('Dreams')">
                 <div class="status-ring"><div class="status-circle">Dreams</div></div>
                 <span class="status-label">Dreams</span>
             </div>
-            <div class="status-wrapper" id="home-tab-Work" onclick="setHomeCategory('Work')">
+            <div class="status-wrapper" onclick="setHomeCategory('Work')">
                 <div class="status-ring"><div class="status-circle">Work</div></div>
                 <span class="status-label">Work</span>
             </div>
@@ -345,27 +146,26 @@
         </div>
 
         <div class="card">
-            <h3 id="homeInputTitle" style="color:#FFD700; margin-bottom:15px; font-size:16px; text-align:center;">Create New Plan</h3>
-            <textarea id="noteInput" placeholder="Yahan apna plan likhein..."></textarea>
+            <h3 id="homeInputTitle" style="color:#FFD700; margin-bottom:15px; text-align:center;">Create New Plan</h3>
+            <textarea id="noteInput" placeholder="Yahan likhein..."></textarea>
             <button class="save-btn" onclick="saveNoteFromHome()">
                 <i class="fas fa-plus"></i> SAVE NEW NOTE
             </button>
         </div>
     </div>
 
-    <!-- ================= NOTES SCREEN ================= -->
+    <!-- NOTES SCREEN -->
     <div id="notesScreen" style="display: none;">
-        
         <div class="status-container">
-            <div class="status-wrapper active" id="tab-Plans" onclick="switchTab('Plans')">
+            <div class="status-wrapper" onclick="switchTab('Plans')">
                 <div class="status-ring"><div class="status-circle">Plans</div></div>
                 <span class="status-label">Plans</span>
             </div>
-            <div class="status-wrapper" id="tab-Dreams" onclick="switchTab('Dreams')">
+            <div class="status-wrapper" onclick="switchTab('Dreams')">
                 <div class="status-ring"><div class="status-circle">Dreams</div></div>
                 <span class="status-label">Dreams</span>
             </div>
-            <div class="status-wrapper" id="tab-Work" onclick="switchTab('Work')">
+            <div class="status-wrapper" onclick="switchTab('Work')">
                 <div class="status-ring"><div class="status-circle">Work</div></div>
                 <span class="status-label">Work</span>
             </div>
@@ -379,35 +179,23 @@
             <h2><i class="fas fa-file-alt"></i> <span id="categoryTitle">Plans</span></h2>
             <span id="noteCount" style="color: #FFD700;">0 Notes</span>
         </div>
-        
         <div class="notes-grid" id="notesList"></div>
     </div>
 
-    <!-- ================= BOTTOM NAV (NEW GOL DESIGN) ================= -->
+    <!-- BOTTOM NAV -->
     <div class="bottom-nav">
-        <!-- Home Button -->
-        <a class="nav-item active" id="nav-home" onclick="showHome()">
-            <div class="nav-icon-circle">
-                <div class="nav-icon-inner"><i class="fas fa-home"></i></div>
-            </div>
+        <div class="nav-item" onclick="showHome()">
+            <div class="nav-icon-circle"><div class="nav-icon-inner"><i class="fas fa-home"></i></div></div>
             <span class="nav-label">Home</span>
-        </a>
-        
-        <!-- Notes Button -->
-        <a class="nav-item" id="nav-notes" onclick="showNotesApp()">
-            <div class="nav-icon-circle">
-                <div class="nav-icon-inner"><i class="fas fa-sticky-note"></i></div>
-            </div>
+        </div>
+        <div class="nav-item" onclick="showNotesApp()">
+            <div class="nav-icon-circle"><div class="nav-icon-inner"><i class="fas fa-sticky-note"></i></div></div>
             <span class="nav-label">Notes</span>
-        </a>
-        
-        <!-- Profile Button -->
-        <a class="nav-item" onclick="alert('Profile Coming Soon!')">
-            <div class="nav-icon-circle">
-                <div class="nav-icon-inner"><i class="fas fa-user"></i></div>
-            </div>
+        </div>
+        <div class="nav-item" onclick="showProfile()">
+            <div class="nav-icon-circle"><div class="nav-icon-inner"><i class="fas fa-user"></i></div></div>
             <span class="nav-label">Profile</span>
-        </a>
+        </div>
     </div>
 
     <!-- Modals -->
@@ -415,23 +203,24 @@
         <div class="modal-content">
             <button class="close-modal" onclick="closeFullNote()">×</button>
             <h2 id="fullNoteTitle">Note</h2>
-            <p id="fullNoteText" class="full-note-text"></p>
+            <p id="fullNoteText" style="color:#FFD700; font-size:16px; margin-bottom:20px;"></p>
             <button class="save-btn" onclick="closeFullNote()">CLOSE</button>
         </div>
     </div>
 
     <div id="aboutDialog" class="modal">
-        <div class="modal-content" style="text-align:center;">
-            <i class="fas fa-crown" style="color: #FFD700; font-size: 40px; margin-bottom: 15px; text-shadow: 0 0 15px #FFD700;"></i>
+        <div class="modal-content">
             <h2>ABD NOTES</h2>
-            <p style="color:#ccc; font-size:14px; margin-bottom:20px; line-height:1.6;">
-                Welcome to <strong style="color:#FFD700;">ABD NOTES</strong>, your ultimate digital companion for organizing your thoughts, dreams, and daily tasks. 
-                <br><br>
-                Developed with passion by <strong style="color:#FFD700;">ABD AI Studio</strong>, we strive to bring you the best digital tools. 
-                <br><br>
-                <strong style="color:#FFD700;">Trusted. Secure. Premium.</strong>
-            </p>
+            <p style="color:#ccc; font-size:14px; margin-bottom:20px;">Developed by ABD AI Studio</p>
             <button class="save-btn" onclick="closeAbout()">CLOSE</button>
+        </div>
+    </div>
+    
+    <div id="profileDialog" class="modal">
+        <div class="modal-content">
+            <h2>My Profile</h2>
+            <p style="color:#ccc; font-size:14px; margin-bottom:20px;">Total Notes: <span id="totalNotesProfile" style="color:#FFD700;">0</span></p>
+            <button class="save-btn" onclick="closeProfile()">CLOSE</button>
         </div>
     </div>
 
@@ -440,31 +229,21 @@
         let homeCategory = 'Plans'; 
         let allNotes = JSON.parse(localStorage.getItem('abdNotesData')) || [];
 
+        // Simple functions to switch screens
         function showHome() {
             document.getElementById('homeScreen').style.display = 'block';
             document.getElementById('notesScreen').style.display = 'none';
-            document.getElementById('nav-home').classList.add('active');
-            document.getElementById('nav-notes').classList.remove('active');
         }
 
         function showNotesApp() {
             document.getElementById('homeScreen').style.display = 'none';
             document.getElementById('notesScreen').style.display = 'block';
-            document.getElementById('nav-home').classList.remove('active');
-            document.getElementById('nav-notes').classList.add('active');
             switchTab(homeCategory); 
         }
 
         function setHomeCategory(cat) {
             homeCategory = cat;
-            document.querySelectorAll('#homeScreen .status-wrapper').forEach(el => el.classList.remove('active'));
-            document.getElementById('home-tab-' + cat).classList.add('active');
-
-            let titleMap = { 'Plans': 'Create New Plan', 'Dreams': 'Create New Dream', 'Work': 'Create New Work Note' };
-            let placeholderMap = { 'Plans': 'Yahan apna plan likhein...', 'Dreams': 'Yahan apna dream likhein...', 'Work': 'Yahan apna work likhein...' };
-            
-            document.getElementById('homeInputTitle').innerText = titleMap[cat];
-            document.getElementById('noteInput').placeholder = placeholderMap[cat];
+            document.getElementById('homeInputTitle').innerText = 'Create New ' + cat;
         }
 
         function saveNoteFromHome() {
@@ -478,49 +257,69 @@
             localStorage.setItem('abdNotesData', JSON.stringify(allNotes));
             
             document.getElementById('noteInput').value = "";
-            alert("Note Saved Successfully!");
+            alert("Note Saved!");
             showNotesApp(); 
         }
 
         function switchTab(category) {
             currentCategory = category;
-            document.querySelectorAll('#notesScreen .status-wrapper').forEach(el => el.classList.remove('active'));
-            document.getElementById('tab-' + category).classList.add('active');
-
             document.getElementById('categoryTitle').innerText = category;
             displayNotes();
         }
 
-        function deleteNote(event, originalIndex) {
+        function deleteNote(event, index) {
             event.stopPropagation(); 
             if(confirm("Delete this note?")) {
-                allNotes.splice(originalIndex, 1);
+                allNotes.splice(index, 1);
                 localStorage.setItem('abdNotesData', JSON.stringify(allNotes));
                 displayNotes();
             }
         }
 
         function openFullNote(note) {
-            document.getElementById('fullNoteTitle').innerText = `${note.category} Note`;
+            document.getElementById('fullNoteTitle').innerText = note.category;
             document.getElementById('fullNoteText').innerText = note.text;
             document.getElementById('fullNoteDialog').style.display = 'flex';
         }
-
         function closeFullNote() { document.getElementById('fullNoteDialog').style.display = 'none'; }
 
         function displayNotes() {
             let list = document.getElementById('notesList');
-            let count = document.getElementById('noteCount');
             list.innerHTML = "";
+            let filtered = allNotes.filter(n => n.category === currentCategory);
+            document.getElementById('noteCount').innerText = filtered.length + " Notes";
             
-            let filteredNotes = allNotes.filter(note => note.category === currentCategory);
-            count.innerText = filteredNotes.length + " Notes";
-            
-            if(filteredNotes.length === 0) { 
-                list.innerHTML = `<p style='color:gray; text-align:center; column-span: all;'>Koi ${currentCategory} note nahi hai.</p>`; 
+            if(filtered.length === 0) { 
+                list.innerHTML = "<p style='color:gray; text-align:center; column-span: all;'>No notes.</p>"; 
                 return; 
             }
             
-            filteredNotes.forEach((note) => {
+            filtered.forEach((note) => {
                 let originalIndex = allNotes.indexOf(note);
-                let div = do
+                let div = document.createElement('div');
+                div.className = 'note-item';
+                div.setAttribute('onclick', `openFullNote(${JSON.stringify(note).replace(/"/g, '&quot;')})`);
+                div.innerHTML = `
+                    <div class="note-title">${note.text}</div>
+                    <div class="note-footer">
+                        <span style="font-size:10px; color:#888;">${note.date}</span>
+                        <button class="delete-btn" onclick="deleteNote(event, ${originalIndex})"><i class="fas fa-trash"></i></button>
+                    </div>
+                `;
+                list.appendChild(div);
+            });
+        }
+        
+        function showAbout() { document.getElementById('aboutDialog').style.display = 'flex'; }
+        function closeAbout() { document.getElementById('aboutDialog').style.display = 'none'; }
+        
+        function showProfile() { 
+            document.getElementById('totalNotesProfile').innerText = allNotes.length;
+            document.getElementById('profileDialog').style.display = 'flex'; 
+        }
+        function closeProfile() { document.getElementById('profileDialog').style.display = 'none'; }
+
+        showHome();
+    </script>
+</body>
+                                             </html>
