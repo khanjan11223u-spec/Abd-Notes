@@ -51,7 +51,7 @@
             text-align: center;
         }
 
-        /* --- About Button (Top Right) --- */
+        /* --- Top Right About Button --- */
         .about-btn-top { 
             background: transparent; 
             color: #FFD700; 
@@ -67,12 +67,12 @@
             cursor: pointer;
         }
 
-        /* --- 4 Circular Buttons with Status Ring --- */
+        /* --- 4 Circular Buttons (Status Rings) --- */
         .status-container {
             display: flex;
             justify-content: space-between;
             margin-bottom: 25px;
-            padding: 0 10px;
+            padding: 0 5px;
         }
         .status-wrapper {
             display: flex;
@@ -80,25 +80,34 @@
             align-items: center;
             gap: 8px;
             cursor: pointer;
+            opacity: 0.6; /* Inactive look */
+            transition: 0.3s;
         }
-        /* Instagram/WhatsApp Style Glowing Ring */
+        .status-wrapper.active {
+            opacity: 1;
+            transform: scale(1.05);
+        }
         .status-ring {
             width: 70px;
             height: 70px;
             border-radius: 50%;
-            padding: 3px; /* Thickness of the ring */
-            background: linear-gradient(45deg, #FFD700, #FFA500, #FFD700); /* Golden Gradient Ring */
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.8), 0 0 30px rgba(255, 165, 0, 0.5); /* Heavy Glow */
+            padding: 3px; 
+            background: linear-gradient(45deg, #FFD700, #FFA500, #FFD700); 
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.8), 0 0 30px rgba(255, 165, 0, 0.5); 
             display: flex;
             justify-content: center;
             align-items: center;
+        }
+        .status-wrapper:not(.active) .status-ring {
+            background: linear-gradient(45deg, #555, #777, #555); /* Grey ring for inactive */
+            box-shadow: none;
         }
         .status-circle {
             width: 100%;
             height: 100%;
             border-radius: 50%;
-            background-color: #000; /* Black inside */
-            border: 2px solid #000; /* Gap between ring and circle */
+            background-color: #000; 
+            border: 2px solid #000; 
             display: flex;
             justify-content: center;
             align-items: center;
@@ -282,17 +291,17 @@
         </button>
     </div>
 
-    <!-- 4 Status Buttons with Glowing Rings -->
+    <!-- 4 Status Buttons -->
     <div class="status-container">
-        <div class="status-wrapper">
+        <div class="status-wrapper active" id="tab-plans" onclick="switchTab('Plans')">
             <div class="status-ring"><div class="status-circle">Plans</div></div>
             <span class="status-label">Plans</span>
         </div>
-        <div class="status-wrapper">
+        <div class="status-wrapper" id="tab-dreams" onclick="switchTab('Dreams')">
             <div class="status-ring"><div class="status-circle">Dreams</div></div>
             <span class="status-label">Dreams</span>
         </div>
-        <div class="status-wrapper">
+        <div class="status-wrapper" id="tab-work" onclick="switchTab('Work')">
             <div class="status-ring"><div class="status-circle">Work</div></div>
             <span class="status-label">Work</span>
         </div>
@@ -304,7 +313,8 @@
 
     <!-- Note Input -->
     <div class="card">
-        <textarea id="noteInput" placeholder="Yahan apni note likhein..."></textarea>
+        <h3 id="currentCategoryTitle" style="color:#FFD700; margin-bottom:10px; font-size:16px;">Writing in: <span style="color:#fff;">Plans</span></h3>
+        <textarea id="noteInput" placeholder="Yahan apna plan likhein..."></textarea>
         <button class="save-btn" onclick="saveNote()">
             <i class="fas fa-save"></i> SAVE NOTE
         </button>
@@ -346,18 +356,45 @@
         <div class="modal-content" style="text-align:center;">
             <i class="fas fa-crown" style="color: #FFD700; font-size: 40px; margin-bottom: 15px; text-shadow: 0 0 15px #FFD700;"></i>
             <h2>ABD NOTES</h2>
-            <p style="color:#ccc; font-size:14px; margin-bottom:20px;">
-                This premium app is proudly developed by <br>
-                <strong style="color:#FFD700;">ABD AI Studio</strong><br>
-                Your trusted partner.
+            <p style="color:#ccc; font-size:14px; margin-bottom:20px; line-height:1.6;">
+                Welcome to <strong style="color:#FFD700;">ABD NOTES</strong>, your ultimate digital companion for organizing your thoughts, dreams, and daily tasks. 
+                <br><br>
+                Developed with passion by <strong style="color:#FFD700;">ABD AI Studio</strong>, we strive to bring you the best digital tools. 
+                <br><br>
+                <strong style="color:#FFD700;">Trusted. Secure. Premium.</strong>
             </p>
             <button class="save-btn" onclick="closeAbout()">CLOSE</button>
         </div>
     </div>
 
     <script>
-        let notes = JSON.parse(localStorage.getItem('abdNotes')) || [];
-        
+        // Category track karne ke liye variable
+        let currentCategory = 'Plans'; 
+        let allNotes = JSON.parse(localStorage.getItem('abdNotesData')) || [];
+
+        // --- Tab Switch Logic ---
+        function switchTab(category) {
+            currentCategory = category;
+            
+            // Update Active Class on Buttons
+            document.querySelectorAll('.status-wrapper').forEach(el => el.classList.remove('active'));
+            document.getElementById('tab-' + category.toLowerCase()).classList.add('active');
+
+            // Update Input Title
+            document.getElementById('currentCategoryTitle').innerHTML = `Writing in: <span style="color:#fff;">${category}</span>`;
+            
+            // Update Placeholder
+            let placeholders = {
+                'Plans': 'Yahan apna plan likhein...',
+                'Dreams': 'Yahan apna dream likhein...',
+                'Work': 'Yahan apna work likhein...'
+            };
+            document.getElementById('noteInput').placeholder = placeholders[category];
+
+            displayNotes();
+        }
+
+        // --- Save Note ---
         function saveNote() {
             let text = document.getElementById('noteInput').value;
             if(text.trim() === "") { alert("Note khali hai!"); return; }
@@ -365,56 +402,67 @@
             let now = new Date();
             let dateStr = now.getDate() + ' ' + now.toLocaleString('default', { month: 'short' }) + ' ' + now.getFullYear();
             
-            notes.unshift({ text: text, date: dateStr }); 
-            localStorage.setItem('abdNotes', JSON.stringify(notes));
+            // Save with category
+            allNotes.unshift({ text: text, date: dateStr, category: currentCategory }); 
+            localStorage.setItem('abdNotesData', JSON.stringify(allNotes));
             document.getElementById('noteInput').value = "";
             displayNotes();
         }
 
-        function deleteNote(event, index) {
+        // --- Delete Note ---
+        function deleteNote(event, originalIndex) {
             event.stopPropagation(); 
             if(confirm("Delete this note?")) {
-                notes.splice(index, 1);
-                localStorage.setItem('abdNotes', JSON.stringify(notes));
+                allNotes.splice(originalIndex, 1);
+                localStorage.setItem('abdNotesData', JSON.stringify(allNotes));
                 displayNotes();
             }
         }
 
-        function openFullNote(index) {
-            let note = notes[index];
-            document.getElementById('fullNoteTitle').innerText = `Note ${notes.length - index}`;
+        // --- Open Full Note ---
+        function openFullNote(note) {
+            document.getElementById('fullNoteTitle').innerText = `${note.category} Note`;
             document.getElementById('fullNoteText').innerText = note.text;
             document.getElementById('fullNoteDialog').style.display = 'flex';
         }
 
         function closeFullNote() { document.getElementById('fullNoteDialog').style.display = 'none'; }
 
+        // --- Display Notes ---
         function displayNotes() {
             let list = document.getElementById('notesList');
             let count = document.getElementById('noteCount');
             list.innerHTML = "";
-            count.innerText = notes.length + " Notes";
             
-            if(notes.length === 0) { 
-                list.innerHTML = "<p style='color:gray; text-align:center; column-span: all;'>Koi note nahi hai.</p>"; 
+            // Filter notes based on active category
+            let filteredNotes = allNotes.filter(note => note.category === currentCategory);
+            count.innerText = filteredNotes.length + " Notes";
+            
+            if(filteredNotes.length === 0) { 
+                list.innerHTML = `<p style='color:gray; text-align:center; column-span: all;'>Koi ${currentCategory} note nahi hai.</p>`; 
                 return; 
             }
             
-            notes.forEach((note, index) => {
+            filteredNotes.forEach((note) => {
+                let originalIndex = allNotes.indexOf(note);
                 let div = document.createElement('div');
                 div.className = 'note-item';
-                div.setAttribute('onclick', `openFullNote(${index})`);
+                div.setAttribute('onclick', `openFullNote(${JSON.stringify(note).replace(/"/g, '&quot;')})`);
                 
-                let emojis = ['📝', '💡', '🔥', '😎', '💼', '📚', '🚀', '✨'];
-                let randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
+                let emojis = {
+                    'Plans': '📝',
+                    'Dreams': '🚀',
+                    'Work': '💼'
+                };
+                let emoji = emojis[note.category] || '📝';
 
                 div.innerHTML = `
                     <div class="note-title">
-                        ${randomEmoji} ${note.text}
+                        ${emoji} ${note.text}
                     </div>
                     <div class="note-footer">
                         <span class="note-date">📅 ${note.date}</span>
-                        <button class="delete-btn" onclick="deleteNote(event, ${index})">
+                        <button class="delete-btn" onclick="deleteNote(event, ${originalIndex})">
                             <i class="fas fa-trash-alt"></i>
                         </button>
                     </div>
@@ -426,7 +474,8 @@
         function showAbout() { document.getElementById('aboutDialog').style.display = 'flex'; }
         function closeAbout() { document.getElementById('aboutDialog').style.display = 'none'; }
 
-        displayNotes();
+        // Initialize
+        switchTab('Plans');
     </script>
 </body>
-            </html>
+    </html>
