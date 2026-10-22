@@ -11,10 +11,8 @@
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
         
         body { 
-            background-color: #050505; 
-            background-image: linear-gradient(45deg, #111 25%, transparent 25%, transparent 75%, #111 75%, #111), linear-gradient(45deg, #111 25%, transparent 25%, transparent 75%, #111 75%, #111);
-            background-size: 20px 20px;
-            background-position: 0 0, 10px 10px;
+            /* FULL BLACK BACKGROUND */
+            background-color: #000000; 
             color: #fff; 
             font-family: 'Poppins', sans-serif;
             padding: 20px;
@@ -22,7 +20,7 @@
             user-select: none;
             
             /* Mobile screen ke charo taraf Golden Border/Glow */
-            box-shadow: inset 0 0 20px rgba(255, 215, 0, 0.5), inset 0 0 40px rgba(255, 165, 0, 0.3);
+            box-shadow: inset 0 0 20px rgba(255, 215, 0, 0.4), inset 0 0 40px rgba(255, 165, 0, 0.2);
             border: 2px solid rgba(255, 215, 0, 0.6);
             border-radius: 15px;
             margin: 5px;
@@ -50,7 +48,6 @@
         .status-ring {
             width: 70px; height: 70px; border-radius: 50%; padding: 3px; 
             background: linear-gradient(45deg, #FFD700, #FFA500, #FFD700); 
-            /* Smooth Glow */
             box-shadow: 0 0 15px rgba(255, 215, 0, 0.5), 0 0 30px rgba(255, 165, 0, 0.3); 
             display: flex; justify-content: center; align-items: center;
             transition: 0.3s;
@@ -227,7 +224,6 @@
         </div>
     </div>
 
-    <!-- Professional About Dialog -->
     <div id="aboutDialog" class="modal">
         <div class="modal-content">
             <i class="fas fa-crown" style="color: #FFD700; font-size: 40px; margin-bottom: 10px;"></i>
@@ -243,7 +239,6 @@
         </div>
     </div>
     
-    <!-- Profile Dialog -->
     <div id="profileDialog" class="modal">
         <div class="modal-content">
             <i class="fas fa-user-circle" style="color: #FFD700; font-size: 50px; margin-bottom: 10px;"></i>
@@ -276,7 +271,7 @@
 
         function saveNoteFromHome() {
             let text = document.getElementById('noteInput').value;
-            if(text.trim() === "") { return; } // Silent return if empty, no alert
+            if(text.trim() === "") { return; } 
             
             let now = new Date();
             let dateStr = now.getDate() + ' ' + now.toLocaleString('default', { month: 'short' }) + ' ' + now.getFullYear();
@@ -285,8 +280,6 @@
             localStorage.setItem('abdNotesData', JSON.stringify(allNotes));
             
             document.getElementById('noteInput').value = "";
-            // Alert hataya gaya hai
-            
             showNotesApp(); 
         }
 
@@ -346,4 +339,4 @@
         showHome();
     </script>
 </body>
-    </html>
+                </html>
