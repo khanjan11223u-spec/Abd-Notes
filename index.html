@@ -97,7 +97,7 @@
             -webkit-box-orient: vertical;
             overflow: hidden;
             word-break: break-word;
-            white-space: pre-wrap; 
+            white-space: pre-wrap; /* YAHAN LINE BREAK FIX HUA */
         }
         
         .note-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; border-top: 1px solid #333; padding-top: 8px; }
@@ -135,64 +135,16 @@
         .modal-content h2 { color: #FFD700; margin-bottom: 15px; font-family: 'Cinzel', serif; }
         .close-modal { position: absolute; top: 10px; right: 15px; color: #ff4444; font-size: 24px; cursor: pointer; background: none; border: none; }
         
-        /* Note Text - Selectable */
         .full-note-text { 
             color: #FFD700; 
             font-size: 16px; 
             text-align: left; 
-            white-space: pre-wrap; 
+            white-space: pre-wrap; /* YEH LINE BREAKS KO THEEK KARTA HAI */
             margin-bottom: 20px; 
             max-height: 50vh; 
             overflow-y: auto; 
             line-height: 1.6;
             word-break: break-word;
-            
-            /* YEH HAI COPY/PASTE WALA JADU */
-            user-select: text; 
-            -webkit-user-select: text;
-            padding: 10px;
-            background: #111;
-            border-radius: 10px;
-            border: 1px solid #333;
-        }
-
-        /* Edit Input in Modal */
-        .edit-input {
-            width: 100%;
-            height: 150px;
-            background: #111;
-            color: #FFD700;
-            border: 1px solid #FFD700;
-            padding: 15px;
-            border-radius: 12px;
-            margin-bottom: 15px;
-            resize: none;
-            font-size: 16px;
-            font-family: 'Poppins', sans-serif;
-            display: none; /* Default mein chhupa hua */
-        }
-
-        /* Edit / Save Buttons Container */
-        .modal-actions {
-            display: flex;
-            justify-content: space-between;
-            gap: 10px;
-        }
-        
-        .modal-actions button {
-            flex: 1;
-        }
-
-        .edit-btn-style {
-            background: transparent;
-            color: #FFD700;
-            border: 2px solid #FFD700;
-            padding: 15px;
-            border-radius: 12px;
-            font-weight: bold;
-            font-size: 16px;
-            cursor: pointer;
-            display: flex; justify-content: center; align-items: center; gap: 10px;
         }
 
         /* Custom Toast */
@@ -294,30 +246,15 @@
     </div>
 
     <!-- Custom Toast Message -->
-    <div id="customToast">Note Updated!</div>
+    <div id="customToast">Note Saved!</div>
 
     <!-- Modals -->
     <div id="fullNoteDialog" class="modal">
         <div class="modal-content">
             <button class="close-modal" onclick="closeFullNote()">×</button>
             <h2 id="fullNoteTitle">Note</h2>
-            
-            <!-- View Mode Text -->
             <p id="fullNoteText" class="full-note-text"></p>
-            
-            <!-- Edit Mode Input (Chhupa hua) -->
-            <textarea id="editNoteInput" class="edit-input"></textarea>
-
-            <!-- Action Buttons -->
-            <div class="modal-actions">
-                <button class="edit-btn-style" id="editBtn" onclick="enableEditMode()">
-                    <i class="fas fa-edit"></i> EDIT
-                </button>
-                <button class="save-btn" id="saveEditBtn" style="display: none;" onclick="saveEditedNote()">
-                    <i class="fas fa-save"></i> SAVE
-                </button>
-                <button class="save-btn" id="closeBtn" onclick="closeFullNote()">CLOSE</button>
-            </div>
+            <button class="save-btn" onclick="closeFullNote()">CLOSE</button>
         </div>
     </div>
 
@@ -349,7 +286,6 @@
         let currentCategory = 'Plans'; 
         let homeCategory = 'Plans'; 
         let allNotes = JSON.parse(localStorage.getItem('abdNotesData')) || [];
-        let currentEditingIndex = -1; // Kis note ko edit kar rahe hain
 
         function showHome() {
             document.getElementById('homeScreen').style.display = 'block';
@@ -380,7 +316,6 @@
             document.getElementById('noteInput').value = "";
             
             let toast = document.getElementById('customToast');
-            toast.innerText = "Note Saved!";
             toast.style.display = 'block';
             setTimeout(() => { toast.style.display = 'none'; }, 2000);
             
@@ -402,52 +337,66 @@
             }
         }
 
-        // --- OPEN NOTE ---
-        function openFullNote(text, category, index) {
-            currentEditingIndex = index;
+        function openFullNote(text, category) {
             document.getElementById('fullNoteTitle').innerText = category;
             document.getElementById('fullNoteText').innerText = text; 
-            
-            // Reset to view mode
-            document.getElementById('fullNoteText').style.display = 'block';
-            document.getElementById('editNoteInput').style.display = 'none';
-            document.getElementById('editBtn').style.display = 'flex';
-            document.getElementById('saveEditBtn').style.display = 'none';
-            document.getElementById('closeBtn').style.display = 'block';
-
             document.getElementById('fullNoteDialog').style.display = 'flex';
         }
-
         function closeFullNote() { document.getElementById('fullNoteDialog').style.display = 'none'; }
 
-        // --- EDIT NOTE ---
-        function enableEditMode() {
-            let currentText = document.getElementById('fullNoteText').innerText;
+        function displayNotes() {
+            let list = document.getElementById('notesList');
+            list.innerHTML = "";
+            let filtered = allNotes.filter(n => n.category === currentCategory);
+            document.getElementById('noteCount').innerText = filtered.length + " Notes";
             
-            // Textarea mein text daalo
-            document.getElementById('editNoteInput').value = currentText;
+            if(filtered.length === 0) { 
+                list.innerHTML = "<p style='color:gray; text-align:center; column-span: all;'>No notes.</p>"; 
+                return; 
+            }
             
-            // Switch UI
-            document.getElementById('fullNoteText').style.display = 'none';
-            document.getElementById('editNoteInput').style.display = 'block';
-            document.getElementById('editBtn').style.display = 'none';
-            document.getElementById('saveEditBtn').style.display = 'flex';
-            document.getElementById('closeBtn').style.display = 'none';
+            filtered.forEach((note) => {
+                let originalIndex = allNotes.indexOf(note);
+                let div = document.createElement('div');
+                div.className = 'note-item';
+                
+                let safeText = note.text.replace(/'/g, "\\'").replace(/"/g, '&quot;').replace(/\n/g, '\\n');
+                div.setAttribute('onclick', `openFullNote('${safeText}', '${note.category}')`);
+                
+                let displayText = note.text.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+                
+                div.innerHTML = `
+                    <div class="note-title">${displayText}</div>
+                    <div class="note-footer">
+                        <span style="font-size:10px; color:#888;">${note.date}</span>
+                        <button class="delete-btn" onclick="deleteNote(event, ${originalIndex})"><i class="fas fa-trash"></i></button>
+                    </div>
+                `;
+                list.appendChild(div);
+            });
+        }
+        
+        function showAbout() { document.getElementById('aboutDialog').style.display = 'flex'; }
+        function closeAbout() { document.getElementById('aboutDialog').style.display = 'none'; }
+        
+        function showProfile() { document.getElementById('profileDialog').style.display = 'flex'; }
+        function closeProfile() { document.getElementById('profileDialog').style.display = 'none'; }
+
+        // Keyboard Fix
+        const noteInput = document.getElementById('noteInput');
+        const bottomNav = document.querySelector('.bottom-nav');
+
+        if(noteInput) {
+            noteInput.addEventListener('focus', () => {
+                bottomNav.style.bottom = '-100px';
+            });
+            bottomNav.style.bottom = '20px';
+            noteInput.addEventListener('blur', () => {
+                bottomNav.style.bottom = '20px';
+            });
         }
 
-        function saveEditedNote() {
-            let newText = document.getElementById('editNoteInput').value;
-            if(newText.trim() === "") { alert("Note khali nahi ho sakta!"); return; }
-
-            // Update array
-            allNotes[currentEditingIndex].text = newText;
-            localStorage.setItem('abdNotesData', JSON.stringify(allNotes));
-            
-            // Update UI
-            document.getElementById('fullNoteText').innerText = newText;
-            
-            // Switch back to view mode
-            document.getElementById('fullNoteText').style.display = 'block';
-            document.getElementById('editNoteInput').style.display = 'none';
-            document.getElementById('editBtn').style.display = 'flex';
-            document.g
+        showHome();
+    </script>
+</body>
+                    </html>
