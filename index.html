@@ -154,10 +154,9 @@
             background: #111;
             border-radius: 10px;
             border: 1px solid #333;
-            flex-grow: 1; /* Pura page cover karega */
+            flex-grow: 1;
         }
 
-        /* Edit Input */
         #editNoteInput {
             display: none;
             width: 100%;
@@ -341,8 +340,13 @@
     <script>
         let currentCategory = 'Plans'; 
         let homeCategory = 'Plans'; 
-        let allNotes = JSON.parse(localStorage.getItem('abdNotesData')) || [];
+        let allNotes = [];
         let currentEditingIndex = -1;
+
+        try {
+            let stored = localStorage.getItem('abdNotesData');
+            if (stored) { allNotes = JSON.parse(stored); }
+        } catch(e) { allNotes = []; }
 
         function showHome() {
             document.getElementById('homeScreen').style.display = 'block';
@@ -361,7 +365,9 @@
         }
 
         function saveNoteFromHome() {
-            let text = document.getElementById('noteInput').value;
+            let textBox = document.getElementById('noteInput');
+            let text = textBox.value;
+            
             if(text.trim() === "") { alert("Note khali hai!"); return; }
             
             let now = new Date();
@@ -370,7 +376,7 @@
             allNotes.unshift({ text: text, date: dateStr, category: homeCategory }); 
             localStorage.setItem('abdNotesData', JSON.stringify(allNotes));
             
-            document.getElementById('noteInput').value = "";
+            textBox.value = ""; 
             
             let toast = document.getElementById('customToast');
             toast.innerText = "Note Saved!";
@@ -386,6 +392,41 @@
             displayNotes();
         }
 
+        function displayNotes() {
+            let list = document.getElementById('notesList');
+            list.innerHTML = "";
+            
+            let filtered = allNotes.filter(n => n.category === currentCategory);
+            document.getElementById('noteCount').innerText = filtered.length + " Notes";
+            
+            if(filtered.length === 0) { 
+                list.innerHTML = "<p style='color:gray; text-align:center; column-span: all;'>No notes.</p>"; 
+                return; 
+            }
+            
+            for (let i = 0; i < filtered.length; i++) {
+                let note = filtered[i];
+                let originalIndex = allNotes.indexOf(note); 
+                
+                let div = document.createElement('div');
+                div.className = 'note-item';
+                
+                // FIX: Using closures to avoid click errors
+                div.onclick = function() { openFullNote(originalIndex); };
+                
+                let displayText = note.text.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+                
+                div.innerHTML = `
+                    <div class="note-title">${displayText}</div>
+                    <div class="note-footer">
+                        <span style="font-size:10px; color:#888;">${note.date}</span>
+                        <button class="delete-btn" onclick="deleteNote(event, ${originalIndex})"><i class="fas fa-trash"></i></button>
+                    </div>
+                `;
+                list.appendChild(div);
+            }
+        }
+
         function deleteNote(event, index) {
             event.stopPropagation(); 
             if(confirm("Delete this note?")) {
@@ -395,13 +436,13 @@
             }
         }
 
-        // OPEN NOTE FIXED
-        function openFullNote(text, category, index) {
+        function openFullNote(index) {
             currentEditingIndex = index;
-            document.getElementById('fullNoteTitle').innerText = category;
-            document.getElementById('fullNoteText').innerText = text; 
+            let note = allNotes[index];
             
-            // Reset UI
+            document.getElementById('fullNoteTitle').innerText = note.category;
+            document.getElementById('fullNoteText').innerText = note.text; 
+            
             document.getElementById('fullNoteText').style.display = 'block';
             document.getElementById('editNoteInput').style.display = 'none';
             document.getElementById('editBtn').style.display = 'flex';
@@ -410,42 +451,8 @@
 
             document.getElementById('fullNoteDialog').style.display = 'flex';
         }
+
         function closeFullNote() { document.getElementById('fullNoteDialog').style.display = 'none'; }
 
-        // EDIT LOGIC
         function enableEdit() {
-            let currentText = document.getElementById('fullNoteText').innerText;
-            document.getElementById('editNoteInput').value = currentText;
-            
-            document.getElementById('fullNoteText').style.display = 'none';
-            document.getElementById('editNoteInput').style.display = 'block';
-            document.getElementById('editBtn').style.display = 'none';
-            document.getElementById('saveEditBtn').style.display = 'flex';
-            document.getElementById('closeBtn').style.display = 'none';
-        }
-
-        function saveEditedNote() {
-            let newText = document.getElementById('editNoteInput').value;
-            if(newText.trim() === "") { alert("Note khali nahi ho sakta!"); return; }
-
-            allNotes[currentEditingIndex].text = newText;
-            localStorage.setItem('abdNotesData', JSON.stringify(allNotes));
-            
-            document.getElementById('fullNoteText').innerText = newText;
-            
-            document.getElementById('fullNoteText').style.display = 'block';
-            document.getElementById('editNoteInput').style.display = 'none';
-            document.getElementById('editBtn').style.display = 'flex';
-            document.getElementById('saveEditBtn').style.display = 'none';
-            document.getElementById('closeBtn').style.display = 'block';
-
-            let toast = document.getElementById('customToast');
-            toast.innerText = "Note Updated!";
-            toast.style.display = 'block';
-            setTimeout(() => { toast.style.display = 'none'; }, 2000);
-
-            displayNotes();
-        }
-
-        function displayNotes() {
-            let list = document.getElement
+            let currentText = document.getElementById('fullNoteText').innerT
