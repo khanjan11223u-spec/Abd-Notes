@@ -97,6 +97,7 @@
             -webkit-box-orient: vertical;
             overflow: hidden;
             word-break: break-word;
+            white-space: pre-wrap; /* YAHAN LINE BREAK FIX HUA */
         }
         
         .note-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; border-top: 1px solid #333; padding-top: 8px; }
@@ -135,7 +136,14 @@
         .close-modal { position: absolute; top: 10px; right: 15px; color: #ff4444; font-size: 24px; cursor: pointer; background: none; border: none; }
         
         .full-note-text { 
-            color: #FFD700; font-size: 16px; text-align: left; white-space: pre-wrap; margin-bottom: 20px; max-height: 50vh; overflow-y: auto; line-height: 1.6;
+            color: #FFD700; 
+            font-size: 16px; 
+            text-align: left; 
+            white-space: pre-wrap; /* YEH LINE BREAKS KO THEEK KARTA HAI */
+            margin-bottom: 20px; 
+            max-height: 50vh; 
+            overflow-y: auto; 
+            line-height: 1.6;
             word-break: break-word;
         }
 
@@ -329,7 +337,6 @@
             }
         }
 
-        // OPen Note Fix
         function openFullNote(text, category) {
             document.getElementById('fullNoteTitle').innerText = category;
             document.getElementById('fullNoteText').innerText = text; 
@@ -353,11 +360,9 @@
                 let div = document.createElement('div');
                 div.className = 'note-item';
                 
-                // Yahan click ka sahi tareeka lagaya gaya hai
-                let safeText = note.text.replace(/'/g, "\\'").replace(/"/g, '&quot;').replace(/\n/g, ' ');
+                let safeText = note.text.replace(/'/g, "\\'").replace(/"/g, '&quot;').replace(/\n/g, '\\n');
                 div.setAttribute('onclick', `openFullNote('${safeText}', '${note.category}')`);
                 
-                // Text ko safe karke dikhaya gaya hai
                 let displayText = note.text.replace(/</g, "&lt;").replace(/>/g, "&gt;");
                 
                 div.innerHTML = `
@@ -385,6 +390,7 @@
             noteInput.addEventListener('focus', () => {
                 bottomNav.style.bottom = '-100px';
             });
+            bottomNav.style.bottom = '20px';
             noteInput.addEventListener('blur', () => {
                 bottomNav.style.bottom = '20px';
             });
@@ -393,4 +399,4 @@
         showHome();
     </script>
 </body>
-                </html>
+            </html>
