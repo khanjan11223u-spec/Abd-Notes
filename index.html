@@ -11,7 +11,6 @@
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
         
         body { 
-            /* FULL BLACK BACKGROUND */
             background-color: #000000; 
             color: #fff; 
             font-family: 'Poppins', sans-serif;
@@ -19,7 +18,6 @@
             padding-bottom: 120px;
             user-select: none;
             
-            /* Mobile screen ke charo taraf Golden Border/Glow */
             box-shadow: inset 0 0 20px rgba(255, 215, 0, 0.4), inset 0 0 40px rgba(255, 165, 0, 0.2);
             border: 2px solid rgba(255, 215, 0, 0.6);
             border-radius: 15px;
@@ -29,7 +27,6 @@
             overflow-x: hidden;
         }
 
-        /* Scrollbar styling for inside screen */
         body::-webkit-scrollbar { width: 0px; }
 
         /* --- Header --- */
@@ -42,7 +39,7 @@
         .title-container h1 { font-family: 'Cinzel', serif; color: #FFD700; font-size: 26px; text-shadow: 0 0 10px rgba(255,215,0,0.8); }
         .title-container p { font-size: 10px; letter-spacing: 2px; color: #ccc; margin-top: 2px; }
 
-        /* --- Top Buttons (Smooth Professional Glow) --- */
+        /* --- Top Buttons --- */
         .status-container { display: flex; justify-content: space-between; margin-bottom: 25px; padding: 0 5px; }
         .status-wrapper { display: flex; flex-direction: column; align-items: center; gap: 8px; cursor: pointer; }
         .status-ring {
@@ -96,6 +93,7 @@
         .bottom-nav {
             position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
             width: 85%; display: flex; justify-content: space-around; z-index: 100;
+            transition: bottom 0.3s ease; /* Keyboard open hone par smooth chhupne ke liye */
         }
         .nav-item { display: flex; flex-direction: column; align-items: center; gap: 6px; cursor: pointer; }
         .nav-icon-circle {
@@ -271,7 +269,7 @@
 
         function saveNoteFromHome() {
             let text = document.getElementById('noteInput').value;
-            if(text.trim() === "") { return; } 
+            if(text.trim() === "") { alert("Note khali hai!"); return; }
             
             let now = new Date();
             let dateStr = now.getDate() + ' ' + now.toLocaleString('default', { month: 'short' }) + ' ' + now.getFullYear();
@@ -280,6 +278,7 @@
             localStorage.setItem('abdNotesData', JSON.stringify(allNotes));
             
             document.getElementById('noteInput').value = "";
+            alert("Note Saved Successfully!");
             showNotesApp(); 
         }
 
@@ -291,9 +290,11 @@
 
         function deleteNote(event, index) {
             event.stopPropagation(); 
-            allNotes.splice(index, 1);
-            localStorage.setItem('abdNotesData', JSON.stringify(allNotes));
-            displayNotes();
+            if(confirm("Delete this note?")) {
+                allNotes.splice(index, 1);
+                localStorage.setItem('abdNotesData', JSON.stringify(allNotes));
+                displayNotes();
+            }
         }
 
         function openFullNote(note) {
@@ -336,7 +337,22 @@
         function showProfile() { document.getElementById('profileDialog').style.display = 'flex'; }
         function closeProfile() { document.getElementById('profileDialog').style.display = 'none'; }
 
+        // ==========================================
+        // KEYBOARD FIX: Jab type karo toh nav bar chhupe
+        // ==========================================
+        const noteInput = document.getElementById('noteInput');
+        const bottomNav = document.querySelector('.bottom-nav');
+
+        if(noteInput) {
+            noteInput.addEventListener('focus', () => {
+                bottomNav.style.bottom = '-100px'; // Chhupa do
+            });
+            noteInput.addEventListener('blur', () => {
+                bottomNav.style.bottom = '20px'; // Wapas lao
+            });
+        }
+
         showHome();
     </script>
 </body>
-                </html>
+            </html>
