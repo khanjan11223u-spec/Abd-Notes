@@ -137,8 +137,6 @@
             text-align: center; 
             box-shadow: 0 0 30px rgba(255,215,0,0.4);
             position: relative;
-            
-            /* TIDY NOTES STYLE FIX */
             max-height: 90vh; 
             display: flex;
             flex-direction: column;
@@ -146,20 +144,16 @@
         .modal-content h2 { color: #FFD700; margin-bottom: 15px; font-family: 'Cinzel', serif; font-size: 24px;}
         .close-modal { position: absolute; top: 10px; right: 15px; color: #ff4444; font-size: 24px; cursor: pointer; background: none; border: none; }
         
-        /* Note Text - Selectable & Scrollable */
         .full-note-text { 
             color: #FFD700; 
             font-size: 15px; 
             text-align: left; 
             white-space: pre-wrap; 
             margin-bottom: 20px; 
-            
-            /* YAHAN HEIGHT BADHA DI HAI */
             max-height: 65vh; 
             overflow-y: auto; 
             line-height: 1.6;
             word-break: break-word;
-            
             user-select: text; 
             -webkit-user-select: text;
             padding: 15px;
@@ -169,7 +163,6 @@
             flex-grow: 1; 
         }
 
-        /* Edit Input in Modal */
         .edit-input {
             width: 100%;
             height: 150px;
@@ -316,13 +309,10 @@
             <button class="close-modal" onclick="closeFullNote()">×</button>
             <h2 id="fullNoteTitle">Note</h2>
             
-            <!-- View Mode Text -->
             <p id="fullNoteText" class="full-note-text"></p>
             
-            <!-- Edit Mode Input (Chhupa hua) -->
             <textarea id="editNoteInput" class="edit-input"></textarea>
 
-            <!-- Action Buttons -->
             <div class="modal-actions">
                 <button class="edit-btn-style" id="editBtn" onclick="enableEditMode()">
                     <i class="fas fa-edit"></i> EDIT
@@ -360,11 +350,19 @@
     </div>
 
     <script>
+        // Saara code ek jagah, bina kisi complex logic ke.
         let currentCategory = 'Plans'; 
         let homeCategory = 'Plans'; 
-        let allNotes = JSON.parse(localStorage.getItem('abdNotesData')) || [];
+        let allNotes = []; 
         let currentEditingIndex = -1; 
 
+        // Load Notes from Storage
+        try {
+            let stored = localStorage.getItem('abdNotesData');
+            if (stored) { allNotes = JSON.parse(stored); }
+        } catch(e) { allNotes = []; }
+
+        // Navigation
         function showHome() {
             document.getElementById('homeScreen').style.display = 'block';
             document.getElementById('notesScreen').style.display = 'none';
@@ -381,8 +379,11 @@
             document.getElementById('homeInputTitle').innerText = 'Create New ' + cat;
         }
 
+        // Save Note
         function saveNoteFromHome() {
-            let text = document.getElementById('noteInput').value;
+            let textBox = document.getElementById('noteInput');
+            let text = textBox.value;
+            
             if(text.trim() === "") { alert("Note khali hai!"); return; }
             
             let now = new Date();
@@ -391,7 +392,7 @@
             allNotes.unshift({ text: text, date: dateStr, category: homeCategory }); 
             localStorage.setItem('abdNotesData', JSON.stringify(allNotes));
             
-            document.getElementById('noteInput').value = "";
+            textBox.value = ""; // Clear textarea
             
             let toast = document.getElementById('customToast');
             toast.innerText = "Note Saved!";
@@ -407,8 +408,46 @@
             displayNotes();
         }
 
+        // Display Notes
+        function displayNotes() {
+            let list = document.getElementById('notesList');
+            list.innerHTML = "";
+            
+            let filtered = allNotes.filter(n => n.category === currentCategory);
+            document.getElementById('noteCount').innerText = filtered.length + " Notes";
+            
+            if(filtered.length === 0) { 
+                list.innerHTML = "<p style='color:gray; text-align:center; column-span: all;'>No notes.</p>"; 
+                return; 
+            }
+            
+            // Use classic for loop for reliability
+            for (let i = 0; i < filtered.length; i++) {
+                let note = filtered[i];
+                let originalIndex = allNotes.indexOf(note); // Find original index
+                
+                let div = document.createElement('div');
+                div.className = 'note-item';
+                
+                // Button click directly function call karega with index number
+                div.onclick = function() { openFullNote(originalIndex); };
+                
+                let displayText = note.text.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+                
+                div.innerHTML = `
+                    <div class="note-title">${displayText}</div>
+                    <div class="note-footer">
+                        <span style="font-size:10px; color:#888;">${note.date}</span>
+                        <button class="delete-btn" onclick="deleteNote(event, ${originalIndex})"><i class="fas fa-trash"></i></button>
+                    </div>
+                `;
+                list.appendChild(div);
+            }
+        }
+
+        // Delete Note
         function deleteNote(event, index) {
-            event.stopPropagation(); 
+            event.stopPropagation(); // Don't open note when deleting
             if(confirm("Delete this note?")) {
                 allNotes.splice(index, 1);
                 localStorage.setItem('abdNotesData', JSON.stringify(allNotes));
@@ -416,43 +455,12 @@
             }
         }
 
-        function openFullNote(text, category, index) {
+        // Open Note
+        function openFullNote(index) {
             currentEditingIndex = index;
-            document.getElementById('fullNoteTitle').innerText = category;
-            document.getElementById('fullNoteText').innerText = text; 
+            let note = allNotes[index];
             
-            document.getElementById('fullNoteText').style.display = 'block';
-            document.getElementById('editNoteInput').style.display = 'none';
-            document.getElementById('editBtn').style.display = 'flex';
-            document.getElementById('saveEditBtn').style.display = 'none';
-            document.getElementById('closeBtn').style.display = 'block';
-
-            document.getElementById('fullNoteDialog').style.display = 'flex';
-        }
-
-        function closeFullNote() { document.getElementById('fullNoteDialog').style.display = 'none'; }
-
-        function enableEditMode() {
-            let currentText = document.getElementById('fullNoteText').innerText;
-            document.getElementById('editNoteInput').value = currentText;
+            document.getElementById('fullNoteTitle').innerText = note.category;
+            document.getElementById('fullNoteText').innerText = note.text; 
             
-            document.getElementById('fullNoteText').style.display = 'none';
-            document.getElementById('editNoteInput').style.display = 'block';
-            document.getElementById('editBtn').style.display = 'none';
-            document.getElementById('saveEditBtn').style.display = 'flex';
-            document.getElementById('closeBtn').style.display = 'none';
-        }
-
-        function saveEditedNote() {
-            let newText = document.getElementById('editNoteInput').value;
-            if(newText.trim() === "") { alert("Note khali nahi ho sakta!"); return; }
-
-            allNotes[currentEditingIndex].text = newText;
-            localStorage.setItem('abdNotesData', JSON.stringify(allNotes));
-            
-            document.getElementById('fullNoteText').innerText = newText;
-            
-            document.getElementById('fullNoteText').style.display = 'block';
-            document.getElementById('editNoteInput').style.display = 'none';
-            document.getElementById('editBtn').style.display = 'flex';
-            document.getEleme
+            document.getElementById('fullNoteText').style.display = 'b
