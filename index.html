@@ -92,12 +92,11 @@
             font-weight: 500; 
             margin-bottom: 8px; 
             line-height: 1.4;
-            /* YEH HAI SABSE BADA FIX */
             display: -webkit-box;
             -webkit-line-clamp: 3; 
             -webkit-box-orient: vertical;
             overflow: hidden;
-            word-break: break-word; /* Lambey text ko todne ke liye */
+            word-break: break-word;
         }
         
         .note-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; border-top: 1px solid #333; padding-top: 8px; }
@@ -330,10 +329,10 @@
             }
         }
 
-        function openFullNote(note) {
-            document.getElementById('fullNoteTitle').innerText = note.category;
-            // YEH LINE CODE KO TEXT MEIN BADALTI HAI (TAKI WO CHALNA SHURU NA KARE)
-            document.getElementById('fullNoteText').innerText = note.text; 
+        // OPen Note Fix
+        function openFullNote(text, category) {
+            document.getElementById('fullNoteTitle').innerText = category;
+            document.getElementById('fullNoteText').innerText = text; 
             document.getElementById('fullNoteDialog').style.display = 'flex';
         }
         function closeFullNote() { document.getElementById('fullNoteDialog').style.display = 'none'; }
@@ -354,12 +353,15 @@
                 let div = document.createElement('div');
                 div.className = 'note-item';
                 
-                // YAHAN HTML CODE NA CHALNE KA FIX HAI
-                div.setAttribute('onclick', `openFullNote(${JSON.stringify(note).replace(/"/g, '&quot;')})`);
+                // Yahan click ka sahi tareeka lagaya gaya hai
+                let safeText = note.text.replace(/'/g, "\\'").replace(/"/g, '&quot;').replace(/\n/g, ' ');
+                div.setAttribute('onclick', `openFullNote('${safeText}', '${note.category}')`);
                 
-                // YAHAN BHI TEXT KO AS TEXT DIKHAYA GAYA HAI
+                // Text ko safe karke dikhaya gaya hai
+                let displayText = note.text.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+                
                 div.innerHTML = `
-                    <div class="note-title">${note.text.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</div>
+                    <div class="note-title">${displayText}</div>
                     <div class="note-footer">
                         <span style="font-size:10px; color:#888;">${note.date}</span>
                         <button class="delete-btn" onclick="deleteNote(event, ${originalIndex})"><i class="fas fa-trash"></i></button>
@@ -391,4 +393,4 @@
         showHome();
     </script>
 </body>
-    </html>
+                </html>
