@@ -148,46 +148,11 @@
             overflow-y: auto; 
             line-height: 1.6;
             word-break: break-word;
-            /* user-select hata diya gaya hai */
             padding: 10px;
             background: #111;
             border-radius: 10px;
             border: 1px solid #333;
             flex-grow: 1;
-        }
-
-        #editNoteInput {
-            display: none;
-            width: 100%;
-            height: 150px;
-            background: #111;
-            color: #FFD700;
-            border: 1px solid #FFD700;
-            padding: 10px;
-            border-radius: 10px;
-            margin-bottom: 15px;
-            font-size: 16px;
-            font-family: 'Poppins', sans-serif;
-            flex-grow: 1;
-        }
-
-        .modal-actions {
-            display: flex;
-            gap: 10px;
-            margin-top: auto;
-        }
-
-        .edit-btn-style {
-            background: transparent;
-            color: #FFD700;
-            border: 2px solid #FFD700;
-            padding: 15px;
-            border-radius: 12px;
-            font-weight: bold;
-            font-size: 16px;
-            cursor: pointer;
-            flex: 1;
-            display: flex; justify-content: center; align-items: center; gap: 5px;
         }
 
         /* Custom Toast */
@@ -298,16 +263,9 @@
             <h2 id="fullNoteTitle">Note</h2>
             
             <p id="fullNoteText" class="full-note-text"></p>
-            <textarea id="editNoteInput"></textarea>
 
             <div class="modal-actions">
-                <button class="edit-btn-style" id="editBtn" onclick="enableEdit()">
-                    <i class="fas fa-edit"></i> EDIT
-                </button>
-                <button class="save-btn" id="saveEditBtn" style="display: none;" onclick="saveEditedNote()">
-                    <i class="fas fa-save"></i> SAVE
-                </button>
-                <button class="save-btn" id="closeBtn" onclick="closeFullNote()">CLOSE</button>
+                <button class="save-btn" onclick="closeFullNote()" style="width: 100%;">CLOSE</button>
             </div>
         </div>
     </div>
@@ -340,7 +298,6 @@
         let currentCategory = 'Plans'; 
         let homeCategory = 'Plans'; 
         let allNotes = [];
-        let currentEditingIndex = -1;
 
         try {
             let stored = localStorage.getItem('abdNotesData');
@@ -410,7 +367,7 @@
                 let div = document.createElement('div');
                 div.className = 'note-item';
                 
-                // FIX: Direct onclick assignment
+                // Simple click function without any complex data passing
                 div.onclick = function() { openFullNote(originalIndex); };
                 
                 let displayText = note.text.replace(/</g, "&lt;").replace(/>/g, "&gt;");
@@ -436,23 +393,29 @@
         }
 
         function openFullNote(index) {
-            currentEditingIndex = index;
             let note = allNotes[index];
             
             document.getElementById('fullNoteTitle').innerText = note.category;
             document.getElementById('fullNoteText').innerText = note.text; 
-            
-            document.getElementById('fullNoteText').style.display = 'block';
-            document.getElementById('editNoteInput').style.display = 'none';
-            document.getElementById('editBtn').style.display = 'flex';
-            document.getElementById('saveEditBtn').style.display = 'none';
-            document.getElementById('closeBtn').style.display = 'block';
 
             document.getElementById('fullNoteDialog').style.display = 'flex';
         }
 
         function closeFullNote() { document.getElementById('fullNoteDialog').style.display = 'none'; }
 
-        function enableEdit() {
-            let currentText = document.getElementById('fullNoteText').innerText;
-            document.getElem
+        function showAbout() { document.getElementById('aboutDialog').style.display = 'flex'; }
+        function closeAbout() { document.getElementById('aboutDialog').style.display = 'none'; }
+        function showProfile() { document.getElementById('profileDialog').style.display = 'flex'; }
+        function closeProfile() { document.getElementById('profileDialog').style.display = 'none'; }
+
+        const noteInput = document.getElementById('noteInput');
+        const bottomNav = document.querySelector('.bottom-nav');
+        if(noteInput) {
+            noteInput.addEventListener('focus', () => { bottomNav.style.bottom = '-100px'; });
+            noteInput.addEventListener('blur', () => { bottomNav.style.bottom = '20px'; });
+        }
+
+        showHome();
+    </script>
+</body>
+            </html>
