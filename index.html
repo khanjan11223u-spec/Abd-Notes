@@ -148,8 +148,7 @@
             overflow-y: auto; 
             line-height: 1.6;
             word-break: break-word;
-            user-select: text; 
-            -webkit-user-select: text;
+            /* user-select hata diya gaya hai */
             padding: 10px;
             background: #111;
             border-radius: 10px;
@@ -411,7 +410,7 @@
                 let div = document.createElement('div');
                 div.className = 'note-item';
                 
-                // FIX: Using closures to avoid click errors
+                // FIX: Direct onclick assignment
                 div.onclick = function() { openFullNote(originalIndex); };
                 
                 let displayText = note.text.replace(/</g, "&lt;").replace(/>/g, "&gt;");
@@ -455,4 +454,5 @@
         function closeFullNote() { document.getElementById('fullNoteDialog').style.display = 'none'; }
 
         function enableEdit() {
-            let currentText = document.getElementById('fullNoteText').innerT
+            let currentText = document.getElementById('fullNoteText').innerText;
+            document.getElem
