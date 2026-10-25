@@ -138,6 +138,7 @@
         .modal-content h2 { color: #FFD700; margin-bottom: 15px; font-family: 'Cinzel', serif; font-size: 24px;}
         .close-modal { position: absolute; top: 10px; right: 15px; color: #ff4444; font-size: 24px; cursor: pointer; background: none; border: none; }
         
+        /* YAHAN TEXT EDIT HONE WALA HAI */
         .full-note-text { 
             color: #FFD700; 
             font-size: 15px; 
@@ -148,11 +149,14 @@
             overflow-y: auto; 
             line-height: 1.6;
             word-break: break-word;
-            padding: 10px;
+            padding: 15px;
             background: #111;
             border-radius: 10px;
             border: 1px solid #333;
             flex-grow: 1;
+            
+            /* Isse text select nahi hoga, balki edit mode on hoga */
+            cursor: pointer; 
         }
 
         /* Custom Toast */
@@ -262,10 +266,15 @@
             <button class="close-modal" onclick="closeFullNote()">×</button>
             <h2 id="fullNoteTitle">Note</h2>
             
-            <p id="fullNoteText" class="full-note-text"></p>
+            <!-- Jab yeh dikh raha hoga, tab edit mode OFF hoga -->
+            <p id="viewModeText" class="full-note-text" onclick="enableEditMode()"></p>
+            
+            <!-- Jab edit mode ON hoga tab yeh dikhega -->
+            <textarea id="editModeText" class="full-note-text" style="display: none;"></textarea>
 
             <div class="modal-actions">
-                <button class="save-btn" onclick="closeFullNote()" style="width: 100%;">CLOSE</button>
+                <button class="save-btn" id="saveBtn" onclick="saveNoteAndClose()" style="display: none;">SAVE & CLOSE</button>
+                <button class="save-btn" id="closeBtn" onclick="closeFullNote()">CLOSE</button>
             </div>
         </div>
     </div>
@@ -298,6 +307,7 @@
         let currentCategory = 'Plans'; 
         let homeCategory = 'Plans'; 
         let allNotes = [];
+        let editingIndex = -1; // Kis note ko edit kar rahe hain
 
         try {
             let stored = localStorage.getItem('abdNotesData');
@@ -366,8 +376,6 @@
                 
                 let div = document.createElement('div');
                 div.className = 'note-item';
-                
-                // Simple click function without any complex data passing
                 div.onclick = function() { openFullNote(originalIndex); };
                 
                 let displayText = note.text.replace(/</g, "&lt;").replace(/>/g, "&gt;");
@@ -392,30 +400,46 @@
             }
         }
 
+        // OPEN NOTE (Only View Mode)
         function openFullNote(index) {
+            editingIndex = index;
             let note = allNotes[index];
             
             document.getElementById('fullNoteTitle').innerText = note.category;
-            document.getElementById('fullNoteText').innerText = note.text; 
+            
+            // View Mode Setup
+            document.getElementById('viewModeText').innerText = note.text;
+            document.getElementById('viewModeText').style.display = 'block';
+            document.getElementById('editModeText').style.display = 'none';
+            document.getElementById('editModeText').value = ""; // Clear textarea
+            document.getElementById('saveBtn').style.display = 'none';
+            document.getElementById('closeBtn').style.display = 'block';
 
             document.getElementById('fullNoteDialog').style.display = 'flex';
         }
 
-        function closeFullNote() { document.getElementById('fullNoteDialog').style.display = 'none'; }
+        // ENABLE EDIT MODE (Jab user text par click kare)
+        function enableEditMode() {
+            let currentText = document.getElementById('viewModeText').innerText;
+            let editTextArea = document.getElementById('editModeText');
 
-        function showAbout() { document.getElementById('aboutDialog').style.display = 'flex'; }
-        function closeAbout() { document.getElementById('aboutDialog').style.display = 'none'; }
-        function showProfile() { document.getElementById('profileDialog').style.display = 'flex'; }
-        function closeProfile() { document.getElementById('profileDialog').style.display = 'none'; }
+            editTextArea.value = currentText;
+            
+            document.getElementById('viewModeText').style.display = 'none';
+            editTextArea.style.display = 'block';
+            
+            document.getElementById('saveBtn').style.display = 'block';
+            document.getElementById('closeBtn').style.display = 'none';
 
-        const noteInput = document.getElementById('noteInput');
-        const bottomNav = document.querySelector('.bottom-nav');
-        if(noteInput) {
-            noteInput.addEventListener('focus', () => { bottomNav.style.bottom = '-100px'; });
-            noteInput.addEventListener('blur', () => { bottomNav.style.bottom = '20px'; });
+            // Keyboard open karo
+            setTimeout(() => { editTextArea.focus(); }, 100);
         }
 
-        showHome();
-    </script>
-</body>
-            </html>
+        // SAVE EDITED NOTE
+        function saveNoteAndClose() {
+            let newText = document.getElementById('editModeText').value;
+            
+            if(newText.trim() !== "") {
+                allNotes[editingIndex].text = newText;
+                localStorage.setItem('abdNotesData', JSON.stringify(allNotes));
+             
