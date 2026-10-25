@@ -122,34 +122,39 @@
         }
         .nav-label { color: #fff; font-size: 11px; font-weight: 500; }
 
-        /* --- Modals (FULL SCREEN STYLE) --- */
+        /* --- Modals (FULL SCREEN FIX) --- */
         .modal {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.95); justify-content: center; align-items: center; z-index: 1000;
+            background: #000; /* Poora kaala background */ 
+            justify-content: center; align-items: center; z-index: 1000;
         }
         .modal-content {
-            background: #0a0a0a; border: 2px solid #FFD700; border-radius: 20px; padding: 25px;
-            /* Yahan humne width aur height barha di hai */
-            width: 95%; 
-            max-width: 600px; 
+            background: #0a0a0a; 
+            border: 2px solid #FFD700; 
+            border-radius: 0px; /* No curve for full screen */
+            /* YAHAN FULL SCREEN HAI */
+            width: 100%; 
+            height: 100%; 
+            max-width: 100%; 
+            max-height: 100%;
+            padding: 20px;
             text-align: center; 
-            box-shadow: 0 0 30px rgba(255,215,0,0.4);
             position: relative;
-            max-height: 95vh;
             display: flex;
             flex-direction: column;
+            margin: 0;
         }
-        .modal-content h2 { color: #FFD700; margin-bottom: 15px; font-family: 'Cinzel', serif; font-size: 24px;}
-        .close-modal { position: absolute; top: 10px; right: 15px; color: #ff4444; font-size: 24px; cursor: pointer; background: none; border: none; }
+        .modal-content h2 { color: #FFD700; margin-bottom: 15px; font-family: 'Cinzel', serif; font-size: 24px; margin-top: 10px;}
+        .close-modal { position: absolute; top: 15px; right: 20px; color: #ff4444; font-size: 28px; cursor: pointer; background: none; border: none; }
         
         .full-note-text { 
             color: #FFD700; 
-            font-size: 15px; 
+            font-size: 16px; 
             text-align: left; 
             white-space: pre-wrap; 
             margin-bottom: 15px; 
-            /* Yahan humne text ki height barha di hai */
-            max-height: 75vh; 
+            /* Text Area ki height badha di */
+            max-height: 80vh; 
             overflow-y: auto; 
             line-height: 1.6;
             word-break: break-word;
@@ -273,25 +278,25 @@
 
     <div id="aboutDialog" class="modal">
         <div class="modal-content">
-            <i class="fas fa-crown" style="color: #FFD700; font-size: 40px; margin-bottom: 10px;"></i>
+            <i class="fas fa-crown" style="color: #FFD700; font-size: 40px; margin-bottom: 10px; margin-top: 20px;"></i>
             <h2>ABD NOTES</h2>
-            <p style="color:#ccc; font-size:14px; line-height:1.6; margin-bottom:20px; text-align:justify;">
+            <p style="color:#ccc; font-size:14px; line-height:1.6; margin-bottom:20px; text-align:justify; padding: 0 15px;">
                 Welcome to <strong>ABD NOTES</strong>, your ultimate premium digital companion for organizing your thoughts, plans, and dreams. 
                 <br><br>
                 Developed with passion by <strong>ABD AI Studio</strong>, we strive to bring you the best digital tools with a luxurious experience. 
                 <br><br>
                 <em style="color:#FFD700;">Trusted. Secure. Premium.</em>
             </p>
-            <button class="save-btn" onclick="closeAbout()">CLOSE</button>
+            <button class="save-btn" onclick="closeAbout()" style="margin: 0 15px; width: auto;">CLOSE</button>
         </div>
     </div>
     
     <div id="profileDialog" class="modal">
         <div class="modal-content">
-            <i class="fas fa-user-circle" style="color: #FFD700; font-size: 50px; margin-bottom: 10px;"></i>
+            <i class="fas fa-user-circle" style="color: #FFD700; font-size: 50px; margin-bottom: 10px; margin-top: 20px;"></i>
             <h2>My Profile</h2>
             <p style="color:#ccc; font-size:16px; margin-bottom:20px;">Coming Soon...</p>
-            <button class="save-btn" onclick="closeProfile()">CLOSE</button>
+            <button class="save-btn" onclick="closeProfile()" style="margin: 0 15px; width: auto;">CLOSE</button>
         </div>
     </div>
 
@@ -367,7 +372,6 @@
                 
                 let div = document.createElement('div');
                 div.className = 'note-item';
-                
                 div.onclick = function() { openFullNote(originalIndex); };
                 
                 let displayText = note.text.replace(/</g, "&lt;").replace(/>/g, "&gt;");
@@ -418,4 +422,4 @@
         showHome();
     </script>
 </body>
-            </html>
+    </html>
