@@ -58,25 +58,6 @@
         }
         .status-label { color: #fff; font-size: 12px; font-weight: 500; }
 
-        /* --- Search Box --- */
-        .search-container {
-            display: none; 
-            margin-bottom: 20px;
-        }
-        .search-input {
-            width: 100%;
-            padding: 12px 15px;
-            background: #111;
-            border: 2px solid #FFD700;
-            border-radius: 20px;
-            color: #FFD700;
-            font-family: 'Poppins', sans-serif;
-            font-size: 14px;
-            outline: none;
-            box-shadow: 0 0 10px rgba(255,215,0,0.2);
-        }
-        .search-input::placeholder { color: #888; }
-
         /* --- Cards & Inputs --- */
         .card { 
             background: #0a0a0a; border: 2px solid #FFD700; border-radius: 20px; 
@@ -202,9 +183,9 @@
                 <div class="status-ring"><div class="status-circle">Work</div></div>
                 <span class="status-label">Work</span>
             </div>
-            <div class="status-wrapper" onclick="toggleSearch()">
-                <div class="status-ring"><div class="status-circle"><i class="fas fa-search"></i></div></div>
-                <span class="status-label">Search</span>
+            <div class="status-wrapper" onclick="showAbout()">
+                <div class="status-ring"><div class="status-circle">About</div></div>
+                <span class="status-label">About</span>
             </div>
         </div>
 
@@ -232,15 +213,10 @@
                 <div class="status-ring"><div class="status-circle">Work</div></div>
                 <span class="status-label">Work</span>
             </div>
-            <div class="status-wrapper" onclick="toggleSearch()">
-                <div class="status-ring"><div class="status-circle"><i class="fas fa-search"></i></div></div>
-                <span class="status-label">Search</span>
+            <div class="status-wrapper" onclick="showAbout()">
+                <div class="status-ring"><div class="status-circle">About</div></div>
+                <span class="status-label">About</span>
             </div>
-        </div>
-
-        <!-- Search Bar -->
-        <div id="searchContainer" class="search-container">
-            <input type="text" id="searchInput" class="search-input" placeholder="Note dhoondein..." onkeyup="filterNotes()">
         </div>
 
         <div class="notes-header">
@@ -362,16 +338,10 @@
             list.innerHTML = "";
             
             let filtered = allNotes.filter(n => n.category === currentCategory);
-            
-            let searchTerm = document.getElementById('searchInput').value.toLowerCase();
-            if(searchTerm) {
-                filtered = filtered.filter(n => n.text.toLowerCase().includes(searchTerm));
-            }
-
             document.getElementById('noteCount').innerText = filtered.length + " Notes";
             
             if(filtered.length === 0) { 
-                list.innerHTML = "<p style='color:gray; text-align:center; column-span: all;'>No notes found.</p>"; 
+                list.innerHTML = "<p style='color:gray; text-align:center; column-span: all;'>No notes.</p>"; 
                 return; 
             }
             
@@ -394,10 +364,6 @@
                 `;
                 list.appendChild(div);
             }
-        }
-
-        function filterNotes() {
-            displayNotes();
         }
 
         function deleteNote(event, index) {
@@ -425,16 +391,14 @@
         function showProfile() { document.getElementById('profileDialog').style.display = 'flex'; }
         function closeProfile() { document.getElementById('profileDialog').style.display = 'none'; }
 
-        function toggleSearch() {
-            const homeScreen = document.getElementById('homeScreen');
-            const notesScreen = document.getElementById('notesScreen');
-            const searchDiv = document.getElementById('searchContainer');
-            const searchInput = document.getElementById('searchInput');
+        const noteInput = document.getElementById('noteInput');
+        const bottomNav = document.querySelector('.bottom-nav');
+        if(noteInput) {
+            noteInput.addEventListener('focus', () => { bottomNav.style.bottom = '-100px'; });
+            noteInput.addEventListener('blur', () => { bottomNav.style.bottom = '20px'; });
+        }
 
-            if (notesScreen.style.display === 'none' || notesScreen.style.display === '') {
-                homeScreen.style.display = 'none';
-                notesScreen.style.display = 'block';
-                switchTab(homeCategory);
-            }
-
-            if (sear
+        showHome();
+    </script>
+</body>
+                </html>
