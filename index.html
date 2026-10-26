@@ -58,6 +58,25 @@
         }
         .status-label { color: #fff; font-size: 12px; font-weight: 500; }
 
+        /* --- Search Box --- */
+        .search-container {
+            display: none; 
+            margin-bottom: 20px;
+        }
+        .search-input {
+            width: 100%;
+            padding: 12px 15px;
+            background: #111;
+            border: 2px solid #FFD700;
+            border-radius: 20px;
+            color: #FFD700;
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            outline: none;
+            box-shadow: 0 0 10px rgba(255,215,0,0.2);
+        }
+        .search-input::placeholder { color: #888; }
+
         /* --- Cards & Inputs --- */
         .card { 
             background: #0a0a0a; border: 2px solid #FFD700; border-radius: 20px; 
@@ -183,8 +202,8 @@
                 <div class="status-ring"><div class="status-circle">Work</div></div>
                 <span class="status-label">Work</span>
             </div>
-            <!-- About ki jagah Search aa gaya -->
-            <div class="status-wrapper" onclick="alert('Search feature coming soon!')">
+            <!-- Search Button -->
+            <div class="status-wrapper" onclick="toggleSearch()">
                 <div class="status-ring"><div class="status-circle"><i class="fas fa-search"></i></div></div>
                 <span class="status-label">Search</span>
             </div>
@@ -214,11 +233,16 @@
                 <div class="status-ring"><div class="status-circle">Work</div></div>
                 <span class="status-label">Work</span>
             </div>
-            <!-- About ki jagah Search aa gaya -->
-            <div class="status-wrapper" onclick="alert('Search feature coming soon!')">
+            <!-- Search Button -->
+            <div class="status-wrapper" onclick="toggleSearch()">
                 <div class="status-ring"><div class="status-circle"><i class="fas fa-search"></i></div></div>
                 <span class="status-label">Search</span>
             </div>
+        </div>
+
+        <!-- Search Bar -->
+        <div id="searchContainer" class="search-container">
+            <input type="text" id="searchInput" class="search-input" placeholder="Note dhoondein..." onkeyup="filterNotes()">
         </div>
 
         <div class="notes-header">
@@ -291,6 +315,31 @@
             if (stored) { allNotes = JSON.parse(stored); }
         } catch(e) { allNotes = []; }
 
+        // --- SEARCH FUNCTION ---
+        function toggleSearch() {
+            // Home se Notes screen par switch karo (taaki search wahan dikhe)
+            document.getElementById('homeScreen').style.display = 'none';
+            document.getElementById('notesScreen').style.display = 'block';
+            
+            // Search bar dikhao ya chhupao
+            let searchDiv = document.getElementById('searchContainer');
+            let searchInput = document.getElementById('searchInput');
+            
+            if (searchDiv.style.display === 'none' || searchDiv.style.display === '') {
+                searchDiv.style.display = 'block';
+                searchInput.focus();
+            } else {
+                searchDiv.style.display = 'none';
+                searchInput.value = '';
+                displayNotes(); // List reset karo
+            }
+        }
+
+        function filterNotes() {
+            displayNotes();
+        }
+
+        // --- Baaki Functions (Waisa hi hai) ---
         function showHome() {
             document.getElementById('homeScreen').style.display = 'block';
             document.getElementById('notesScreen').style.display = 'none';
@@ -340,10 +389,17 @@
             list.innerHTML = "";
             
             let filtered = allNotes.filter(n => n.category === currentCategory);
+            
+            // Search Input check karo
+            let searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            if(searchTerm) {
+                filtered = filtered.filter(n => n.text.toLowerCase().includes(searchTerm));
+            }
+
             document.getElementById('noteCount').innerText = filtered.length + " Notes";
             
             if(filtered.length === 0) { 
-                list.innerHTML = "<p style='color:gray; text-align:center; column-span: all;'>No notes.</p>"; 
+                list.innerHTML = "<p style='color:gray; text-align:center; column-span: all;'>No notes found.</p>"; 
                 return; 
             }
             
@@ -386,21 +442,4 @@
             document.getElementById('fullNoteDialog').style.display = 'flex';
         }
 
-        function closeFullNote() { document.getElementById('fullNoteDialog').style.display = 'none'; }
-
-        function showAbout() { document.getElementById('aboutDialog').style.display = 'flex'; }
-        function closeAbout() { document.getElementById('aboutDialog').style.display = 'none'; }
-        function showProfile() { document.getElementById('profileDialog').style.display = 'flex'; }
-        function closeProfile() { document.getElementById('profileDialog').style.display = 'none'; }
-
-        const noteInput = document.getElementById('noteInput');
-        const bottomNav = document.querySelector('.bottom-nav');
-        if(noteInput) {
-            noteInput.addEventListener('focus', () => { bottomNav.style.bottom = '-100px'; });
-            noteInput.addEventListener('blur', () => { bottomNav.style.bottom = '20px'; });
-        }
-
-        showHome();
-    </script>
-</body>
-                </html>
+        function closeFullNote() { docum
