@@ -443,3 +443,21 @@
         }
 
         function closeFullNote() { docum
+        function closeFullNote() { document.getElementById('fullNoteDialog').style.display = 'none'; }
+
+        function showAbout() { document.getElementById('aboutDialog').style.display = 'flex'; }
+        function closeAbout() { document.getElementById('aboutDialog').style.display = 'none'; }
+        function showProfile() { document.getElementById('profileDialog').style.display = 'flex'; }
+        function closeProfile() { document.getElementById('profileDialog').style.display = 'none'; }
+
+        const noteInput = document.getElementById('noteInput');
+        const bottomNav = document.querySelector('.bottom-nav');
+        if(noteInput) {
+            noteInput.addEventListener('focus', () => { bottomNav.style.bottom = '-100px'; });
+            noteInput.addEventListener('blur', () => { bottomNav.style.bottom = '20px'; });
+        }
+
+        showHome();
+    </script>
+</body>
+</html>
