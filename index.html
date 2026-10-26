@@ -202,7 +202,6 @@
                 <div class="status-ring"><div class="status-circle">Work</div></div>
                 <span class="status-label">Work</span>
             </div>
-            <!-- Search Button -->
             <div class="status-wrapper" onclick="toggleSearch()">
                 <div class="status-ring"><div class="status-circle"><i class="fas fa-search"></i></div></div>
                 <span class="status-label">Search</span>
@@ -233,7 +232,6 @@
                 <div class="status-ring"><div class="status-circle">Work</div></div>
                 <span class="status-label">Work</span>
             </div>
-            <!-- Search Button -->
             <div class="status-wrapper" onclick="toggleSearch()">
                 <div class="status-ring"><div class="status-circle"><i class="fas fa-search"></i></div></div>
                 <span class="status-label">Search</span>
@@ -315,13 +313,11 @@
             if (stored) { allNotes = JSON.parse(stored); }
         } catch(e) { allNotes = []; }
 
-        // --- SEARCH FUNCTION ---
         function toggleSearch() {
-            // Home se Notes screen par switch karo (taaki search wahan dikhe)
             document.getElementById('homeScreen').style.display = 'none';
             document.getElementById('notesScreen').style.display = 'block';
+            switchTab(homeCategory);
             
-            // Search bar dikhao ya chhupao
             let searchDiv = document.getElementById('searchContainer');
             let searchInput = document.getElementById('searchInput');
             
@@ -331,7 +327,7 @@
             } else {
                 searchDiv.style.display = 'none';
                 searchInput.value = '';
-                displayNotes(); // List reset karo
+                displayNotes();
             }
         }
 
@@ -339,7 +335,6 @@
             displayNotes();
         }
 
-        // --- Baaki Functions (Waisa hi hai) ---
         function showHome() {
             document.getElementById('homeScreen').style.display = 'block';
             document.getElementById('notesScreen').style.display = 'none';
@@ -390,7 +385,6 @@
             
             let filtered = allNotes.filter(n => n.category === currentCategory);
             
-            // Search Input check karo
             let searchTerm = document.getElementById('searchInput').value.toLowerCase();
             if(searchTerm) {
                 filtered = filtered.filter(n => n.text.toLowerCase().includes(searchTerm));
@@ -442,12 +436,11 @@
             document.getElementById('fullNoteDialog').style.display = 'flex';
         }
 
-        function closeFullNote() { docum
         function closeFullNote() { document.getElementById('fullNoteDialog').style.display = 'none'; }
 
         function showAbout() { document.getElementById('aboutDialog').style.display = 'flex'; }
         function closeAbout() { document.getElementById('aboutDialog').style.display = 'none'; }
-        function showProfile() { document.getElementById('profileDialog').style.display = 'flex'; }
+                function showProfile() { document.getElementById('profileDialog').style.display = 'flex'; }
         function closeProfile() { document.getElementById('profileDialog').style.display = 'none'; }
 
         const noteInput = document.getElementById('noteInput');
