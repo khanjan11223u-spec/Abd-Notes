@@ -11,28 +11,16 @@
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
         
         body { 
-            background-color: #000000; 
-            color: #fff; 
-            font-family: 'Poppins', sans-serif;
-            padding: 20px;
-            padding-bottom: 160px; 
-            user-select: none;
+            background-color: #000000; color: #fff; font-family: 'Poppins', sans-serif;
+            padding: 20px; padding-bottom: 160px; user-select: none;
             box-shadow: inset 0 0 20px rgba(255, 234, 0, 0.4), inset 0 0 40px rgba(255, 165, 0, 0.2);
-            border: 2px solid #FFEA00;
-            border-radius: 15px;
-            margin: 5px;
-            height: 97vh;
-            overflow-y: auto;
-            overflow-x: hidden;
+            border: 2px solid #FFEA00; border-radius: 15px; margin: 5px;
+            height: 97vh; overflow-y: auto; overflow-x: hidden;
         }
-
         body::-webkit-scrollbar { width: 0px; }
 
         /* --- Header --- */
-        .header { 
-            display: flex; justify-content: space-between; align-items: center; 
-            margin-bottom: 25px; border-bottom: 2px solid #FFEA00; padding-bottom: 15px;
-        }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; border-bottom: 2px solid #FFEA00; padding-bottom: 15px; }
         .title-container { display: flex; align-items: center; gap: 10px; }
         .title-container i { color: #FFEA00; font-size: 30px; text-shadow: 0 0 10px rgba(255,234,0,0.8); }
         .title-container h1 { font-family: 'Cinzel', serif; color: #FFEA00; font-size: 26px; text-shadow: 0 0 10px rgba(255,234,0,0.8); }
@@ -45,17 +33,10 @@
             width: 70px; height: 70px; border-radius: 50%; padding: 3px; 
             background: linear-gradient(45deg, #FFEA00, #FFA500, #FFEA00); 
             box-shadow: 0 0 15px rgba(255, 234, 0, 0.6), 0 0 30px rgba(255, 165, 0, 0.4); 
-            display: flex; justify-content: center; align-items: center;
-            transition: 0.3s;
+            display: flex; justify-content: center; align-items: center; transition: 0.3s;
         }
-        .status-wrapper:hover .status-ring {
-            box-shadow: 0 0 20px rgba(255, 234, 0, 0.9), 0 0 40px rgba(255, 165, 0, 0.6);
-        }
-        .status-circle {
-            width: 100%; height: 100%; border-radius: 50%; background-color: #000; 
-            display: flex; justify-content: center; align-items: center;
-            color: #fff; font-size: 12px; font-weight: 500;
-        }
+        .status-wrapper:hover .status-ring { box-shadow: 0 0 20px rgba(255, 234, 0, 0.9), 0 0 40px rgba(255, 165, 0, 0.6); }
+        .status-circle { width: 100%; height: 100%; border-radius: 50%; background-color: #000; display: flex; justify-content: center; align-items: center; color: #fff; font-size: 12px; font-weight: 500; }
         .status-label { color: #fff; font-size: 12px; font-weight: 500; }
 
         /* --- Search Box --- */
@@ -68,110 +49,39 @@
         .search-input::placeholder { color: #888; }
 
         /* --- Cards & Inputs --- */
-        .card { 
-            background: #0a0a0a; border: 2px solid #FFEA00; border-radius: 20px; 
-            padding: 20px; margin-bottom: 25px; box-shadow: inset 0 0 10px rgba(255,234,0,0.1);
-        }
-        textarea { 
-            width: 100%; height: 120px; background: #111; color: #FFEA00; 
-            border: 1px solid #444; padding: 15px; border-radius: 12px; 
-            margin-bottom: 15px; resize: none; font-size: 16px; font-family: 'Poppins', sans-serif;
-        }
-        button.save-btn { 
-            background: #FFEA00; color: #000; padding: 15px; width: 100%; 
-            border: none; border-radius: 12px; font-weight: bold; font-size: 16px; cursor: pointer;
-            display: flex; justify-content: center; align-items: center; gap: 10px;
-            box-shadow: 0 5px 15px rgba(255,234,0,0.3);
-        }
+        .card { background: #0a0a0a; border: 2px solid #FFEA00; border-radius: 20px; padding: 20px; margin-bottom: 25px; box-shadow: inset 0 0 10px rgba(255,234,0,0.1); }
+        textarea { width: 100%; height: 120px; background: #111; color: #FFEA00; border: 1px solid #444; padding: 15px; border-radius: 12px; margin-bottom: 15px; resize: none; font-size: 16px; font-family: 'Poppins', sans-serif; }
+        button.save-btn { background: #FFEA00; color: #000; padding: 15px; width: 100%; border: none; border-radius: 12px; font-weight: bold; font-size: 16px; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 10px; box-shadow: 0 5px 15px rgba(255,234,0,0.3); }
 
         /* --- Notes Grid --- */
         .notes-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
         .notes-header h2 { color: #FFEA00; font-size: 22px; display: flex; align-items: center; gap: 10px; }
         .notes-grid { column-count: 2; column-gap: 12px; margin-bottom: 80px; }
         
-        .note-item { 
-            background: #111; border: 1px solid #FFEA00; padding: 12px; 
-            margin-bottom: 12px; border-radius: 12px; break-inside: avoid; display: inline-block; width: 100%;
-            cursor: pointer; box-shadow: 0 0 10px rgba(255,234,0,0.1);
-        }
-        
-        .note-title { 
-            color: #FFEA00; 
-            font-size: 14px; 
-            font-weight: 500; 
-            margin-bottom: 8px; 
-            line-height: 1.4;
-            display: -webkit-box;
-            -webkit-line-clamp: 3; 
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            word-break: break-word;
-            white-space: pre-wrap; 
-        }
-        
+        .note-item { background: #111; border: 1px solid #FFEA00; padding: 12px; margin-bottom: 12px; border-radius: 12px; break-inside: avoid; display: inline-block; width: 100%; cursor: pointer; box-shadow: 0 0 10px rgba(255,234,0,0.1); }
+        .note-title { color: #FFEA00; font-size: 14px; font-weight: 500; margin-bottom: 8px; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; word-break: break-word; white-space: pre-wrap; }
         .note-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; border-top: 1px solid #333; padding-top: 8px; }
         .delete-btn { background: transparent; color: #ff4444; border: none; cursor: pointer; font-size: 14px; }
 
         /* ================= BOTTOM NAV ================= */
-        .bottom-nav {
-            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
-            width: 85%; display: flex; justify-content: space-around; z-index: 100;
-            transition: bottom 0.3s ease; 
-        }
+        .bottom-nav { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 85%; display: flex; justify-content: space-around; z-index: 100; transition: bottom 0.3s ease; }
         .nav-item { display: flex; flex-direction: column; align-items: center; gap: 6px; cursor: pointer; }
-        .nav-icon-circle {
-            width: 60px; height: 60px; border-radius: 50%; padding: 3px; 
-            background: linear-gradient(45deg, #FFEA00, #FFA500, #FFEA00);
-            box-shadow: 0 0 15px rgba(255, 234, 0, 0.6), 0 0 30px rgba(255, 165, 0, 0.4);
-            display: flex; justify-content: center; align-items: center;
-        }
-        .nav-icon-inner {
-            width: 100%; height: 100%; border-radius: 50%; background: #000;
-            display: flex; justify-content: center; align-items: center; color: #fff; font-size: 22px;
-        }
+        .nav-icon-circle { width: 60px; height: 60px; border-radius: 50%; padding: 3px; background: linear-gradient(45deg, #FFEA00, #FFA500, #FFEA00); box-shadow: 0 0 15px rgba(255, 234, 0, 0.6), 0 0 30px rgba(255, 165, 0, 0.4); display: flex; justify-content: center; align-items: center; }
+        .nav-icon-inner { width: 100%; height: 100%; border-radius: 50%; background: #000; display: flex; justify-content: center; align-items: center; color: #fff; font-size: 22px; }
         .nav-label { color: #fff; font-size: 11px; font-weight: 500; }
 
         /* --- Modals (Full Screen) --- */
-        .modal {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #000; justify-content: center; align-items: center; z-index: 1000;
-        }
-        .modal-content {
-            background: #0a0a0a; border: 2px solid #FFEA00; border-radius: 0px; 
-            width: 100%; height: 100%; max-width: 100%; max-height: 100%;
-            padding: 20px; text-align: center; position: relative;
-            display: flex; flex-direction: column; margin: 0;
-        }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; justify-content: center; align-items: center; z-index: 1000; }
+        .modal-content { background: #0a0a0a; border: 2px solid #FFEA00; border-radius: 0px; width: 100%; height: 100%; max-width: 100%; max-height: 100%; padding: 20px; text-align: center; position: relative; display: flex; flex-direction: column; margin: 0; }
         .modal-content h2 { color: #FFEA00; margin-bottom: 15px; font-family: 'Cinzel', serif; font-size: 24px; margin-top: 10px;}
         .close-modal { position: absolute; top: 15px; right: 20px; color: #ff4444; font-size: 28px; cursor: pointer; background: none; border: none; }
         
-        .full-note-text { 
-            color: #FFEA00; font-size: 16px; text-align: left; white-space: pre-wrap; 
-            margin-bottom: 15px; max-height: 80vh; overflow-y: auto; 
-            line-height: 1.6; word-break: break-word;
-            padding: 15px; background: #111; border-radius: 10px;
-            border: 1px solid #333; flex-grow: 1;
-            
-            /* YEH COPY/PASTE KA JADU HAI */
-            user-select: text; 
-            -webkit-user-select: text;
-        }
+        .full-note-text { color: #FFEA00; font-size: 16px; text-align: left; white-space: pre-wrap; margin-bottom: 15px; max-height: 80vh; overflow-y: auto; line-height: 1.6; word-break: break-word; padding: 15px; background: #111; border-radius: 10px; border: 1px solid #333; flex-grow: 1; user-select: text; -webkit-user-select: text; }
 
-        /* Naya Edit Input */
-        .edit-input {
-            width: 100%; height: 150px; background: #111; color: #FFEA00; 
-            border: 1px solid #FFEA00; padding: 15px; border-radius: 12px; 
-            margin-bottom: 15px; resize: none; font-size: 16px; font-family: 'Poppins', sans-serif;
-            display: none; flex-grow: 1;
-        }
+        .edit-input { width: 100%; height: 150px; background: #111; color: #FFEA00; border: 1px solid #FFEA00; padding: 15px; border-radius: 12px; margin-bottom: 15px; resize: none; font-size: 16px; font-family: 'Poppins', sans-serif; display: none; flex-grow: 1; }
 
         /* Custom Toast */
-        #customToast {
-            display: none; position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%);
-            background: #FFEA00; color: #000; padding: 10px 20px; border-radius: 20px;
-            font-weight: bold; z-index: 9999; box-shadow: 0 0 15px rgba(255,234,0,0.8);
-            font-size: 14px;
-        }
+        #customToast { display: none; position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%); background: #FFEA00; color: #000; padding: 10px 20px; border-radius: 20px; font-weight: bold; z-index: 9999; box-shadow: 0 0 15px rgba(255,234,0,0.8); font-size: 14px; }
     </style>
 </head>
 <body>
@@ -240,7 +150,6 @@
             </div>
         </div>
 
-        <!-- Search Bar -->
         <div id="searchContainer" class="search-container">
             <input type="text" id="searchInput" class="search-input" placeholder="Search your notes..." onkeyup="filterNotes()">
         </div>
@@ -268,22 +177,14 @@
         </div>
     </div>
 
-    <!-- Custom Toast Message -->
     <div id="customToast">Note Saved!</div>
 
-    <!-- Modals -->
     <div id="fullNoteDialog" class="modal">
         <div class="modal-content">
             <button class="close-modal" onclick="closeFullNote()">×</button>
             <h2 id="fullNoteTitle">Note</h2>
-            
-            <!-- View Mode -->
             <p id="fullNoteText" class="full-note-text"></p>
-            
-            <!-- Edit Mode -->
             <textarea id="editNoteInput" class="edit-input"></textarea>
-
-            <!-- Actions -->
             <div style="display: flex; gap: 10px;">
                 <button class="save-btn" id="editBtn" onclick="enableEditMode()" style="background: transparent; color: #FFEA00; border: 2px solid #FFEA00;">
                     <i class="fas fa-edit"></i> EDIT
@@ -321,7 +222,7 @@
     </div>
 
     <script>
-        let currentCategory = 'Plans'; 
+                let currentCategory = 'Plans'; 
         let homeCategory = 'Plans'; 
         let allNotes = [];
         let editingIndex = -1;
@@ -335,10 +236,8 @@
             document.getElementById('homeScreen').style.display = 'none';
             document.getElementById('notesScreen').style.display = 'block';
             switchTab(homeCategory);
-            
             let searchDiv = document.getElementById('searchContainer');
             let searchInput = document.getElementById('searchInput');
-            
             if (searchDiv.style.display === 'none' || searchDiv.style.display === '') {
                 searchDiv.style.display = 'block';
                 searchInput.focus();
@@ -370,22 +269,16 @@
         function saveNoteFromHome() {
             let textBox = document.getElementById('noteInput');
             let text = textBox.value;
-            
             if(text.trim() === "") { alert("Note khali hai!"); return; }
-            
             let now = new Date();
             let dateStr = now.getDate() + ' ' + now.toLocaleString('default', { month: 'short' }) + ' ' + now.getFullYear();
-            
             allNotes.unshift({ text: text, date: dateStr, category: homeCategory }); 
             localStorage.setItem('abdNotesData', JSON.stringify(allNotes));
-            
             textBox.value = ""; 
-            
             let toast = document.getElementById('customToast');
             toast.innerText = "Note Saved!";
             toast.style.display = 'block';
             setTimeout(() => { toast.style.display = 'none'; }, 2000);
-            
             showNotesApp(); 
         }
 
@@ -398,37 +291,24 @@
         function displayNotes() {
             let list = document.getElementById('notesList');
             list.innerHTML = "";
-            
             let filtered = allNotes.filter(n => n.category === currentCategory);
-            
             let searchTerm = document.getElementById('searchInput').value.toLowerCase();
             if(searchTerm) {
                 filtered = filtered.filter(n => n.text.toLowerCase().includes(searchTerm));
             }
-
             document.getElementById('noteCount').innerText = filtered.length + " Notes";
-            
             if(filtered.length === 0) { 
                 list.innerHTML = "<p style='color:gray; text-align:center; column-span: all;'>No notes found.</p>"; 
                 return; 
             }
-            
             for (let i = 0; i < filtered.length; i++) {
                 let note = filtered[i];
                 let originalIndex = allNotes.indexOf(note); 
-                
                 let div = document.createElement('div');
                 div.className = 'note-item';
                 div.onclick = function() { openFullNote(originalIndex); };
-                
                 let displayText = note.text.replace(/</g, "&lt;").replace(/>/g, "&gt;");
-                
                 div.innerHTML = `
-                    <div class="note-title">${displayText}</div>
-                    <div class="note-footer">
-                        <span style="font-size:10px; color:#888;">${note.date}</span>
-                        <button class="delete-btn" onclick="deleteNote(event, ${originalIndex})"><i class="fas fa-trash"></i></button>
-                                    div.innerHTML = `
                     <div class="note-title">${displayText}</div>
                     <div class="note-footer">
                         <span style="font-size:10px; color:#888;">${note.date}</span>
@@ -451,15 +331,12 @@
         function openFullNote(index) {
             editingIndex = index;
             let note = allNotes[index];
-            
             document.getElementById('fullNoteTitle').innerText = note.category;
             document.getElementById('fullNoteText').innerText = note.text; 
-            
             document.getElementById('fullNoteText').style.display = 'block';
             document.getElementById('editNoteInput').style.display = 'none';
             document.getElementById('editBtn').style.display = 'flex';
             document.getElementById('saveBtn').style.display = 'none';
-
             document.getElementById('fullNoteDialog').style.display = 'flex';
         }
 
@@ -468,36 +345,28 @@
         function enableEditMode() {
             let currentText = document.getElementById('fullNoteText').innerText;
             let editBox = document.getElementById('editNoteInput');
-            
             editBox.value = currentText;
-            
             document.getElementById('fullNoteText').style.display = 'none';
             editBox.style.display = 'block';
             document.getElementById('editBtn').style.display = 'none';
             document.getElementById('saveBtn').style.display = 'flex';
-            
             setTimeout(() => { editBox.focus(); }, 100);
         }
 
         function saveEditedNote() {
             let newText = document.getElementById('editNoteInput').value;
             if(newText.trim() === "") { alert("Note khali nahi ho sakta!"); return; }
-
             allNotes[editingIndex].text = newText;
             localStorage.setItem('abdNotesData', JSON.stringify(allNotes));
-            
             document.getElementById('fullNoteText').innerText = newText;
-            
             document.getElementById('fullNoteText').style.display = 'block';
             document.getElementById('editNoteInput').style.display = 'none';
             document.getElementById('editBtn').style.display = 'flex';
             document.getElementById('saveBtn').style.display = 'none';
-
             let toast = document.getElementById('customToast');
             toast.innerText = "Note Updated!";
             toast.style.display = 'block';
             setTimeout(() => { toast.style.display = 'none'; }, 2000);
-
             displayNotes();
         }
 
@@ -517,4 +386,3 @@
     </script>
 </body>
 </html>
-   
