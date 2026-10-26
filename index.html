@@ -60,7 +60,7 @@
 
         /* --- Search Box --- */
         .search-container {
-            display: none; /* Shuru mein chhupa hua */
+            display: none; 
             margin-bottom: 20px;
         }
         .search-input {
@@ -141,45 +141,26 @@
         }
         .nav-label { color: #fff; font-size: 11px; font-weight: 500; }
 
-        /* --- Modals (FULL SCREEN FIX) --- */
+        /* --- Modals --- */
         .modal {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #000; 
-            justify-content: center; align-items: center; z-index: 1000;
+            background: #000; justify-content: center; align-items: center; z-index: 1000;
         }
         .modal-content {
-            background: #0a0a0a; 
-            border: 2px solid #FFD700; 
-            border-radius: 0px; 
-            width: 100%; 
-            height: 100%; 
-            max-width: 100%; 
-            max-height: 100%;
-            padding: 20px;
-            text-align: center; 
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            margin: 0;
+            background: #0a0a0a; border: 2px solid #FFD700; border-radius: 0px; 
+            width: 100%; height: 100%; max-width: 100%; max-height: 100%;
+            padding: 20px; text-align: center; position: relative;
+            display: flex; flex-direction: column; margin: 0;
         }
         .modal-content h2 { color: #FFD700; margin-bottom: 15px; font-family: 'Cinzel', serif; font-size: 24px; margin-top: 10px;}
         .close-modal { position: absolute; top: 15px; right: 20px; color: #ff4444; font-size: 28px; cursor: pointer; background: none; border: none; }
         
         .full-note-text { 
-            color: #FFD700; 
-            font-size: 16px; 
-            text-align: left; 
-            white-space: pre-wrap; 
-            margin-bottom: 15px; 
-            max-height: 80vh; 
-            overflow-y: auto; 
-            line-height: 1.6;
-            word-break: break-word;
-            padding: 15px;
-            background: #111;
-            border-radius: 10px;
-            border: 1px solid #333;
-            flex-grow: 1;
+            color: #FFD700; font-size: 16px; text-align: left; white-space: pre-wrap; 
+            margin-bottom: 15px; max-height: 80vh; overflow-y: auto; 
+            line-height: 1.6; word-break: break-word;
+            padding: 15px; background: #111; border-radius: 10px;
+            border: 1px solid #333; flex-grow: 1;
         }
 
         /* Custom Toast */
@@ -221,7 +202,6 @@
                 <div class="status-ring"><div class="status-circle">Work</div></div>
                 <span class="status-label">Work</span>
             </div>
-            <!-- Yahan About ki jagah Search aa gaya hai -->
             <div class="status-wrapper" onclick="toggleSearch()">
                 <div class="status-ring"><div class="status-circle"><i class="fas fa-search"></i></div></div>
                 <span class="status-label">Search</span>
@@ -252,14 +232,13 @@
                 <div class="status-ring"><div class="status-circle">Work</div></div>
                 <span class="status-label">Work</span>
             </div>
-            <!-- Yahan bhi Search button hai -->
             <div class="status-wrapper" onclick="toggleSearch()">
                 <div class="status-ring"><div class="status-circle"><i class="fas fa-search"></i></div></div>
                 <span class="status-label">Search</span>
             </div>
         </div>
 
-        <!-- Search Bar (Chhupa hua) -->
+        <!-- Search Bar -->
         <div id="searchContainer" class="search-container">
             <input type="text" id="searchInput" class="search-input" placeholder="Note dhoondein..." onkeyup="filterNotes()">
         </div>
@@ -334,7 +313,6 @@
             if (stored) { allNotes = JSON.parse(stored); }
         } catch(e) { allNotes = []; }
 
-        // Search Box Show/Hide
         function toggleSearch() {
             let searchDiv = document.getElementById('searchContainer');
             if (searchDiv.style.display === 'none' || searchDiv.style.display === '') {
@@ -342,8 +320,8 @@
                 document.getElementById('searchInput').focus();
             } else {
                 searchDiv.style.display = 'none';
-                document.getElementById('searchInput').value = ''; // Clear search
-                displayNotes(); // Reset list
+                document.getElementById('searchInput').value = '';
+                displayNotes();
             }
         }
 
@@ -397,7 +375,6 @@
             
             let filtered = allNotes.filter(n => n.category === currentCategory);
             
-            // Search Filter
             let searchTerm = document.getElementById('searchInput').value.toLowerCase();
             if(searchTerm) {
                 filtered = filtered.filter(n => n.text.toLowerCase().includes(searchTerm));
@@ -453,4 +430,12 @@
             document.getElementById('fullNoteDialog').style.display = 'flex';
         }
 
-        function closeFullNote() { document.getElementById('fullNoteDialog').style.display 
+        function closeFullNote() { document.getElementById('fullNoteDialog').style.display = 'none'; }
+
+        function showAbout() { document.getElementById('aboutDialog').style.display = 'flex'; }
+        function closeAbout() { document.getElementById('aboutDialog').style.display = 'none'; }
+        function showProfile() { document.getElementById('profileDialog').style.display = 'flex'; }
+        function closeProfile() { document.getElementById('profileDialog').style.display = 'none'; }
+
+        const noteInput = document.getElementById('noteInput');
+        const bottomNav = d
