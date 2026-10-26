@@ -313,18 +313,6 @@
             if (stored) { allNotes = JSON.parse(stored); }
         } catch(e) { allNotes = []; }
 
-        function toggleSearch() {
-            let searchDiv = document.getElementById('searchContainer');
-            if (searchDiv.style.display === 'none' || searchDiv.style.display === '') {
-                searchDiv.style.display = 'block';
-                document.getElementById('searchInput').focus();
-            } else {
-                searchDiv.style.display = 'none';
-                document.getElementById('searchInput').value = '';
-                displayNotes();
-            }
-        }
-
         function showHome() {
             document.getElementById('homeScreen').style.display = 'block';
             document.getElementById('notesScreen').style.display = 'none';
@@ -437,5 +425,16 @@
         function showProfile() { document.getElementById('profileDialog').style.display = 'flex'; }
         function closeProfile() { document.getElementById('profileDialog').style.display = 'none'; }
 
-        const noteInput = document.getElementById('noteInput');
-        const bottomNav = d
+        function toggleSearch() {
+            const homeScreen = document.getElementById('homeScreen');
+            const notesScreen = document.getElementById('notesScreen');
+            const searchDiv = document.getElementById('searchContainer');
+            const searchInput = document.getElementById('searchInput');
+
+            if (notesScreen.style.display === 'none' || notesScreen.style.display === '') {
+                homeScreen.style.display = 'none';
+                notesScreen.style.display = 'block';
+                switchTab(homeCategory);
+            }
+
+            if (sear
