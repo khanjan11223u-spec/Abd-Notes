@@ -1,18 +1,111 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Test App</title>
+    <title>ABD NOTES</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body { background: black; color: gold; text-align: center; font-family: sans-serif; padding-top: 50px; }
-        button { padding: 15px; margin: 10px; font-size: 18px; background: gold; color: black; border: none; border-radius: 10px; }
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Poppins:wght@400;500;600&display=swap');
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { 
+            background-color: #000000; color: #fff; font-family: 'Poppins', sans-serif;
+            padding: 20px; padding-bottom: 120px;
+            box-shadow: inset 0 0 20px rgba(255, 215, 0, 0.4), inset 0 0 40px rgba(255, 165, 0, 0.2);
+            border: 2px solid rgba(255, 215, 0, 0.6); border-radius: 15px; margin: 5px;
+            height: 97vh; overflow-y: auto; overflow-x: hidden;
+        }
+        body::-webkit-scrollbar { width: 0px; }
+
+        /* Header */
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; border-bottom: 2px solid #FFD700; padding-bottom: 15px; }
+        .title-container { display: flex; align-items: center; gap: 10px; }
+        .title-container i { color: #FFD700; font-size: 30px; }
+        .title-container h1 { font-family: 'Cinzel', serif; color: #FFD700; font-size: 26px; }
+        .title-container p { font-size: 10px; letter-spacing: 2px; color: #ccc; margin-top: 2px; }
+
+        /* Top Buttons */
+        .status-container { display: flex; justify-content: space-between; margin-bottom: 25px; padding: 0 5px; }
+        .status-wrapper { display: flex; flex-direction: column; align-items: center; gap: 8px; cursor: pointer; }
+        .status-ring {
+            width: 70px; height: 70px; border-radius: 50%; padding: 3px; 
+            background: linear-gradient(45deg, #FFD700, #FFA500, #FFD700); 
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+            display: flex; justify-content: center; align-items: center;
+        }
+        .status-circle { width: 100%; height: 100%; border-radius: 50%; background-color: #000; display: flex; justify-content: center; align-items: center; color: #fff; font-size: 12px; font-weight: 500; }
+        .status-label { color: #fff; font-size: 12px; font-weight: 500; }
+
+        /* Card */
+        .card { background: #0a0a0a; border: 2px solid #FFD700; border-radius: 20px; padding: 20px; margin-bottom: 25px; }
+        textarea { width: 100%; height: 120px; background: #111; color: #FFD700; border: 1px solid #444; padding: 15px; border-radius: 12px; margin-bottom: 15px; resize: none; font-family: 'Poppins', sans-serif; }
+        button.save-btn { background: #FFD700; color: #000; padding: 15px; width: 100%; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; }
+
+        /* Notes Grid */
+        .notes-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .notes-header h2 { color: #FFD700; font-size: 22px; }
+        .notes-grid { column-count: 2; column-gap: 12px; }
+        .note-item { background: #111; border: 1px solid #FFD700; padding: 12px; margin-bottom: 12px; border-radius: 12px; break-inside: avoid; width: 100%; cursor: pointer; }
+        .note-title { color: #FFD700; font-size: 14px; font-weight: 500; margin-bottom: 8px; }
+        .note-footer { display: flex; justify-content: space-between; margin-top: 10px; border-top: 1px solid #333; padding-top: 8px; font-size: 10px; color: #888; }
+
+        /* Bottom Nav */
+        .bottom-nav { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 85%; display: flex; justify-content: space-around; z-index: 100; }
+        .nav-item { display: flex; flex-direction: column; align-items: center; gap: 6px; cursor: pointer; }
+        .nav-icon-circle { width: 60px; height: 60px; border-radius: 50%; padding: 3px; background: linear-gradient(45deg, #FFD700, #FFA500, #FFD700); box-shadow: 0 0 15px rgba(255, 215, 0, 0.5); display: flex; justify-content: center; align-items: center; }
+        .nav-icon-inner { width: 100%; height: 100%; border-radius: 50%; background: #000; display: flex; justify-content: center; align-items: center; color: #fff; font-size: 22px; }
+        .nav-label { color: #fff; font-size: 11px; }
     </style>
 </head>
 <body>
 
-    <h1>ABD NOTES TEST</h1>
-    <button onclick="alert('Home Button Clicked!')">HOME</button>
-    <button onclick="alert('Notes Button Clicked!')">NOTES</button>
+    <!-- Header -->
+    <div class="header">
+        <div class="title-container">
+            <i class="fas fa-crown"></i>
+            <div>
+                <h1>ABD NOTES</h1>
+                <p>IDEAS • PLANS • DREAMS</p>
+            </div>
+        </div>
+        <button style="background: transparent; color: #FFD700; border: 2px solid #FFD700; width: 45px; height: 45px; border-radius: 50%;"><i class="fas fa-info"></i></button>
+    </div>
+
+    <!-- Buttons -->
+    <div class="status-container">
+        <div class="status-wrapper"><div class="status-ring"><div class="status-circle">Plans</div></div><span class="status-label">Plans</span></div>
+        <div class="status-wrapper"><div class="status-ring"><div class="status-circle">Dreams</div></div><span class="status-label">Dreams</span></div>
+        <div class="status-wrapper"><div class="status-ring"><div class="status-circle">Work</div></div><span class="status-label">Work</span></div>
+        <div class="status-wrapper"><div class="status-ring"><div class="status-circle">About</div></div><span class="status-label">About</span></div>
+    </div>
+
+    <!-- Note Input -->
+    <div class="card">
+        <h3 style="color:#FFD700; margin-bottom:15px; text-align:center;">Create New Plan</h3>
+        <textarea placeholder="Yahan likhein..."></textarea>
+        <button class="save-btn">SAVE NEW NOTE</button>
+    </div>
+
+    <!-- Notes List -->
+    <div class="notes-header">
+        <h2>Plans</h2>
+        <span style="color: #FFD700;">0 Notes</span>
+    </div>
+    <div class="notes-grid">
+        <!-- Dummy Note -->
+        <div class="note-item">
+            <div class="note-title">Example Note</div>
+            <div class="note-footer"><span>24 Oct 2026</span><i class="fas fa-trash" style="color:#ff4444;"></i></div>
+        </div>
+    </div>
+
+    <!-- Bottom Nav -->
+    <div class="bottom-nav">
+        <div class="nav-item"><div class="nav-icon-circle"><div class="nav-icon-inner"><i class="fas fa-home"></i></div></div><span class="nav-label">Home</span></div>
+        <div class="nav-item"><div class="nav-icon-circle"><div class="nav-icon-inner"><i class="fas fa-sticky-note"></i></div></div><span class="nav-label">Notes</span></div>
+        <div class="nav-item"><div class="nav-icon-circle"><div class="nav-icon-inner"><i class="fas fa-user"></i></div></div><span class="nav-label">Profile</span></div>
+    </div>
 
 </body>
-</html>
+    </html>
