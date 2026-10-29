@@ -13,7 +13,6 @@
         body { 
             background-color: #000000; color: #fff; font-family: 'Poppins', sans-serif;
             padding: 20px; padding-bottom: 160px; user-select: none;
-            /* Screen Border - No Glow, Only Border */
             border: 3px solid #FFD700; border-radius: 15px; margin: 5px;
             height: 97vh; overflow-y: auto; overflow-x: hidden;
         }
@@ -22,8 +21,8 @@
         /* --- Header --- */
         .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; border-bottom: 3px solid #FFD700; padding-bottom: 15px; }
         .title-container { display: flex; align-items: center; gap: 10px; }
-        .title-container i { color: #FFD700; font-size: 30px; text-shadow: none; }
-        .title-container h1 { font-family: 'Cinzel', serif; color: #FFD700; font-size: 26px; text-shadow: none; }
+        .title-container i { color: #FFD700; font-size: 30px; }
+        .title-container h1 { font-family: 'Cinzel', serif; color: #FFD700; font-size: 26px; }
         .title-container p { font-size: 10px; letter-spacing: 2px; color: #ccc; margin-top: 2px; }
 
         /* --- Top Buttons (No Glow) --- */
@@ -31,9 +30,9 @@
         .status-wrapper { display: flex; flex-direction: column; align-items: center; gap: 8px; cursor: pointer; }
         .status-ring {
             width: 70px; height: 70px; border-radius: 50%; padding: 3px; 
-            background: transparent; /* No fill */
-            border: 3px solid #FFD700; /* Sharp Solid Border */
-            box-shadow: none; /* GLOW HATA DIYA */
+            background: transparent; 
+            border: 3px solid #FFD700; 
+            box-shadow: none; 
             display: flex; justify-content: center; align-items: center; transition: 0.3s;
         }
         .status-circle { width: 100%; height: 100%; border-radius: 50%; background-color: #000; display: flex; justify-content: center; align-items: center; color: #fff; font-size: 12px; font-weight: 500; }
@@ -55,26 +54,26 @@
             border-radius: 20px; 
             padding: 20px; 
             margin-bottom: 25px; 
-            box-shadow: none; /* GLOW HATA DIYA */
+            box-shadow: none; 
         }
         textarea { width: 100%; height: 120px; background: #111; color: #FFD700; border: 2px solid #FFD700; padding: 15px; border-radius: 12px; margin-bottom: 15px; resize: none; font-size: 16px; font-family: 'Poppins', sans-serif; box-shadow: none;}
         button.save-btn { 
             background: #FFD700; color: #000; padding: 15px; width: 100%; 
             border: none; border-radius: 12px; font-weight: bold; font-size: 16px; cursor: pointer; 
             display: flex; justify-content: center; align-items: center; gap: 10px; 
-            box-shadow: none; /* GLOW HATA DIYA */
+            box-shadow: none; 
         }
 
         /* --- Notes Grid --- */
         .notes-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
-        .notes-header h2 { color: #FFD700; font-size: 22px; display: flex; align-items: center; gap: 10px; text-shadow: none;}
+        .notes-header h2 { color: #FFD700; font-size: 22px; display: flex; align-items: center; gap: 10px;}
         .notes-grid { column-count: 2; column-gap: 12px; margin-bottom: 80px; }
         
         .note-item { 
             background: #111; 
             border: 2px solid #FFD700; 
             padding: 12px; margin-bottom: 12px; border-radius: 12px; break-inside: avoid; display: inline-block; width: 100%; cursor: pointer; 
-            box-shadow: none; /* GLOW HATA DIYA */
+            box-shadow: none; 
         }
         .note-title { color: #FFD700; font-size: 14px; font-weight: 500; margin-bottom: 8px; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; word-break: break-word; white-space: pre-wrap; }
         .note-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; border-top: 1px solid #333; padding-top: 8px; }
@@ -87,16 +86,16 @@
             width: 60px; height: 60px; border-radius: 50%; padding: 3px; 
             background: transparent; 
             border: 3px solid #FFD700; 
-            box-shadow: none; /* GLOW HATA DIYA */
+            box-shadow: none; 
             display: flex; justify-content: center; align-items: center; 
         }
         .nav-icon-inner { width: 100%; height: 100%; border-radius: 50%; background: #000; display: flex; justify-content: center; align-items: center; color: #fff; font-size: 22px; }
         .nav-label { color: #fff; font-size: 11px; font-weight: bold; }
 
-        /* --- Modals (Full Screen, No Glow) --- */
+        /* --- Modals (Full Screen) --- */
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; justify-content: center; align-items: center; z-index: 1000; }
         .modal-content { background: #0a0a0a; border: 3px solid #FFD700; border-radius: 0px; width: 100%; height: 100%; max-width: 100%; max-height: 100%; padding: 20px; text-align: center; position: relative; display: flex; flex-direction: column; margin: 0; box-shadow: none;}
-        .modal-content h2 { color: #FFD700; margin-bottom: 15px; font-family: 'Cinzel', serif; font-size: 24px; margin-top: 10px; text-shadow: none;}
+        .modal-content h2 { color: #FFD700; margin-bottom: 15px; font-family: 'Cinzel', serif; font-size: 24px; margin-top: 10px;}
         .close-modal { position: absolute; top: 15px; right: 20px; color: #ff4444; font-size: 28px; cursor: pointer; background: none; border: none; }
         
         .full-note-text { color: #FFD700; font-size: 16px; text-align: left; white-space: pre-wrap; margin-bottom: 15px; max-height: 80vh; overflow-y: auto; line-height: 1.6; word-break: break-word; padding: 15px; background: #111; border-radius: 10px; border: 2px solid #FFD700; flex-grow: 1; user-select: text; -webkit-user-select: text; }
@@ -126,15 +125,15 @@
     <div id="homeScreen">
         <div class="status-container">
             <div class="status-wrapper" onclick="setHomeCategory('Plans')">
-                <div class="status-ring"><div class="status-circle">Plans</div></div>
+                <div class="status-ring"><div class="status-circle">🎯 Plans</div></div>
                 <span class="status-label">Plans</span>
             </div>
             <div class="status-wrapper" onclick="setHomeCategory('Dreams')">
-                <div class="status-ring"><div class="status-circle">Dreams</div></div>
+                <div class="status-ring"><div class="status-circle">✨ Dreams</div></div>
                 <span class="status-label">Dreams</span>
             </div>
             <div class="status-wrapper" onclick="setHomeCategory('Work')">
-                <div class="status-ring"><div class="status-circle">Work</div></div>
+                <div class="status-ring"><div class="status-circle">💼 Work</div></div>
                 <span class="status-label">Work</span>
             </div>
             <div class="status-wrapper" onclick="toggleSearch()">
@@ -144,7 +143,7 @@
         </div>
 
         <div class="card">
-            <h3 id="homeInputTitle" style="color:#FFD700; margin-bottom:15px; text-align:center; text-shadow: none;">Create New Plan</h3>
+            <h3 id="homeInputTitle" style="color:#FFD700; margin-bottom:15px; text-align:center;">Create New Plan</h3>
             <textarea id="noteInput" placeholder="Write your note here..."></textarea>
             <button class="save-btn" onclick="saveNoteFromHome()">
                 <i class="fas fa-plus"></i> SAVE NEW NOTE
@@ -156,15 +155,15 @@
     <div id="notesScreen" style="display: none;">
         <div class="status-container">
             <div class="status-wrapper" onclick="switchTab('Plans')">
-                <div class="status-ring"><div class="status-circle">Plans</div></div>
+                <div class="status-ring"><div class="status-circle">🎯 Plans</div></div>
                 <span class="status-label">Plans</span>
             </div>
             <div class="status-wrapper" onclick="switchTab('Dreams')">
-                <div class="status-ring"><div class="status-circle">Dreams</div></div>
+                <div class="status-ring"><div class="status-circle">✨ Dreams</div></div>
                 <span class="status-label">Dreams</span>
             </div>
             <div class="status-wrapper" onclick="switchTab('Work')">
-                <div class="status-ring"><div class="status-circle">Work</div></div>
+                <div class="status-ring"><div class="status-circle">💼 Work</div></div>
                 <span class="status-label">Work</span>
             </div>
             <div class="status-wrapper" onclick="toggleSearch()">
@@ -179,7 +178,7 @@
 
         <div class="notes-header">
             <h2><i class="fas fa-file-alt"></i> <span id="categoryTitle">Plans</span></h2>
-            <span id="noteCount" style="color: #FFD700; text-shadow: none;">0 Notes</span>
+            <span id="noteCount" style="color: #FFD700;">0 Notes</span>
         </div>
         <div class="notes-grid" id="notesList"></div>
     </div>
@@ -236,7 +235,7 @@
 
     <div id="aboutDialog" class="modal">
         <div class="modal-content">
-            <i class="fas fa-crown" style="color: #FFD700; font-size: 40px; margin-bottom: 10px; margin-top: 20px; text-shadow: none;"></i>
+            <i class="fas fa-crown" style="color: #FFD700; font-size: 40px; margin-bottom: 10px; margin-top: 20px;"></i>
             <h2>ABD NOTES</h2>
             <p style="color:#ccc; font-size:14px; line-height:1.6; margin-bottom:20px; text-align:justify; padding: 0 15px;">
                 Welcome to <strong>ABD NOTES</strong>, your ultimate premium digital companion for organizing your thoughts, plans, and dreams. 
@@ -251,7 +250,7 @@
     
     <div id="profileDialog" class="modal">
         <div class="modal-content">
-            <i class="fas fa-user-circle" style="color: #FFD700; font-size: 50px; margin-bottom: 10px; margin-top: 20px; text-shadow: none;"></i>
+            <i class="fas fa-user-circle" style="color: #FFD700; font-size: 50px; margin-bottom: 10px; margin-top: 20px;"></i>
             <h2>My Profile</h2>
             <p style="color:#ccc; font-size:16px; margin-bottom:20px;">Coming Soon...</p>
             <button class="save-btn" onclick="closeProfile()" style="margin: 0 15px; width: auto;">CLOSE</button>
