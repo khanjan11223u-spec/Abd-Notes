@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ABD NOTES</title>
     <style>
-        /* Saare online fonts hata diye gaye hain */
+        /* Font aur Icon ki CDN links hata di gayi hain taaki app 100% Offline chale */
+
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
         
         body { 
-            background-color: #000000; color: #fff; font-family: sans-serif; /* Default font */
+            background-color: #000000; color: #fff; font-family: sans-serif;
             padding: 20px; padding-bottom: 160px; user-select: none;
             border: 3px solid #FFD700; border-radius: 15px; margin: 5px;
             height: 97vh; overflow-y: auto; overflow-x: hidden;
@@ -19,60 +20,92 @@
         /* --- Header --- */
         .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; border-bottom: 3px solid #FFD700; padding-bottom: 15px; }
         .title-container { display: flex; align-items: center; gap: 10px; }
-        .title-container h1 { color: #FFD700; font-size: 26px; font-family: serif; /* Basic serif font */ }
+        .title-container h1 { color: #FFD700; font-size: 26px; font-family: serif; font-weight: bold;}
         .title-container p { font-size: 10px; letter-spacing: 2px; color: #ccc; margin-top: 2px; }
 
-        /* --- Top Buttons --- */
+        /* --- About Button (Website Style) --- */
+        .about-btn {
+            background: transparent; 
+            color: #FFD700; 
+            border: 3px solid #FFD700; 
+            width: 55px; 
+            height: 55px; 
+            border-radius: 50%; 
+            cursor: pointer; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            font-size: 24px; 
+            outline: none;
+            transition: 0.3s;
+        }
+        .about-btn:active {
+            background: #FFD700;
+            color: #000;
+        }
+
+        /* --- Top Buttons (No Glow) --- */
         .status-container { display: flex; justify-content: space-between; margin-bottom: 25px; padding: 0 5px; }
         .status-wrapper { display: flex; flex-direction: column; align-items: center; gap: 8px; cursor: pointer; }
         .status-ring {
             width: 70px; height: 70px; border-radius: 50%; padding: 3px; 
             background: transparent; 
             border: 3px solid #FFD700; 
-            display: flex; justify-content: center; align-items: center;
+            box-shadow: none; 
+            display: flex; justify-content: center; align-items: center; transition: 0.3s;
         }
-        .status-circle { width: 100%; height: 100%; border-radius: 50%; background-color: #000; display: flex; justify-content: center; align-items: center; color: #fff; font-size: 14px; font-weight: bold; text-align: center; padding: 5px;}
+        .status-circle { width: 100%; height: 100%; border-radius: 50%; background-color: #000; display: flex; justify-content: center; align-items: center; color: #fff; font-size: 16px; font-weight: bold; }
         .status-label { color: #fff; font-size: 12px; font-weight: bold; }
 
         /* --- Search Box --- */
         .search-container { display: none; margin-bottom: 20px; }
         .search-input {
             width: 100%; padding: 12px 15px; background: #111; border: 2px solid #FFD700;
-            border-radius: 20px; color: #FFD700; font-size: 14px; outline: none;
+            border-radius: 20px; color: #FFD700; font-family: sans-serif;
+            font-size: 14px; outline: none; box-shadow: none;
         }
         .search-input::placeholder { color: #888; }
 
-        /* --- Cards & Inputs --- */
+        /* --- Cards & Inputs (No Glow) --- */
         .card { 
-            background: #0a0a0a; border: 3px solid #FFD700; border-radius: 20px; 
-            padding: 20px; margin-bottom: 25px; 
+            background: #0a0a0a; 
+            border: 3px solid #FFD700; 
+            border-radius: 20px; 
+            padding: 20px; 
+            margin-bottom: 25px; 
+            box-shadow: none; 
         }
-        textarea { width: 100%; height: 120px; background: #111; color: #FFD700; border: 2px solid #FFD700; padding: 15px; border-radius: 12px; margin-bottom: 15px; resize: none; font-size: 16px; }
+        textarea { width: 100%; height: 120px; background: #111; color: #FFD700; border: 2px solid #FFD700; padding: 15px; border-radius: 12px; margin-bottom: 15px; resize: none; font-size: 16px; font-family: sans-serif; box-shadow: none;}
         button.save-btn { 
             background: #FFD700; color: #000; padding: 15px; width: 100%; 
             border: none; border-radius: 12px; font-weight: bold; font-size: 16px; cursor: pointer; 
             display: flex; justify-content: center; align-items: center; gap: 10px; 
+            box-shadow: none; 
         }
 
         /* --- Notes Grid --- */
         .notes-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
-        .notes-header h2 { color: #FFD700; font-size: 22px; }
+        .notes-header h2 { color: #FFD700; font-size: 22px; display: flex; align-items: center; gap: 10px;}
         .notes-grid { column-count: 2; column-gap: 12px; margin-bottom: 80px; }
         
         .note-item { 
-            background: #111; border: 2px solid #FFD700; padding: 12px; 
-            margin-bottom: 12px; border-radius: 12px; break-inside: avoid; display: inline-block; width: 100%; cursor: pointer; 
+            background: #111; 
+            border: 2px solid #FFD700; 
+            padding: 12px; margin-bottom: 12px; border-radius: 12px; break-inside: avoid; display: inline-block; width: 100%; cursor: pointer; 
+            box-shadow: none; 
         }
-        .note-title { color: #FFD700; font-size: 14px; font-weight: 500; margin-bottom: 8px; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; word-break: break-word; }
+        .note-title { color: #FFD700; font-size: 14px; font-weight: 500; margin-bottom: 8px; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; word-break: break-word; white-space: pre-wrap; }
         .note-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; border-top: 1px solid #333; padding-top: 8px; }
-        .delete-btn { background: transparent; color: #ff4444; border: none; cursor: pointer; font-size: 14px; font-weight: bold;}
+        .delete-btn { background: transparent; color: #ff4444; border: none; cursor: pointer; font-size: 14px; }
 
-        /* ================= BOTTOM NAV ================= */
-        .bottom-nav { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 85%; display: flex; justify-content: space-around; z-index: 100; }
+        /* ================= BOTTOM NAV (No Glow) ================= */
+        .bottom-nav { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 85%; display: flex; justify-content: space-around; z-index: 100; transition: bottom 0.3s ease; }
         .nav-item { display: flex; flex-direction: column; align-items: center; gap: 6px; cursor: pointer; }
         .nav-icon-circle { 
             width: 60px; height: 60px; border-radius: 50%; padding: 3px; 
-            background: transparent; border: 3px solid #FFD700; 
+            background: transparent; 
+            border: 3px solid #FFD700; 
+            box-shadow: none; 
             display: flex; justify-content: center; align-items: center; 
             font-size: 24px;
         }
@@ -80,16 +113,16 @@
 
         /* --- Modals (Full Screen) --- */
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; justify-content: center; align-items: center; z-index: 1000; }
-        .modal-content { background: #0a0a0a; border: 3px solid #FFD700; width: 100%; height: 100%; padding: 20px; text-align: center; display: flex; flex-direction: column; }
-        .modal-content h2 { color: #FFD700; margin-bottom: 15px; font-size: 24px; }
+        .modal-content { background: #0a0a0a; border: 3px solid #FFD700; border-radius: 0px; width: 100%; height: 100%; max-width: 100%; max-height: 100%; padding: 20px; text-align: center; position: relative; display: flex; flex-direction: column; margin: 0; box-shadow: none;}
+        .modal-content h2 { color: #FFD700; margin-bottom: 15px; font-family: serif; font-size: 24px; margin-top: 10px;}
         .close-modal { position: absolute; top: 15px; right: 20px; color: #ff4444; font-size: 28px; cursor: pointer; background: none; border: none; font-weight: bold;}
         
-        .full-note-text { color: #FFD700; font-size: 16px; text-align: left; white-space: pre-wrap; margin-bottom: 15px; max-height: 80vh; overflow-y: auto; line-height: 1.6; padding: 15px; background: #111; border-radius: 10px; border: 2px solid #FFD700; flex-grow: 1; user-select: text; }
+        .full-note-text { color: #FFD700; font-size: 16px; text-align: left; white-space: pre-wrap; margin-bottom: 15px; max-height: 80vh; overflow-y: auto; line-height: 1.6; word-break: break-word; padding: 15px; background: #111; border-radius: 10px; border: 2px solid #FFD700; flex-grow: 1; user-select: text; -webkit-user-select: text; }
 
-        .edit-input { width: 100%; height: 150px; background: #111; color: #FFD700; border: 2px solid #FFD700; padding: 15px; border-radius: 12px; margin-bottom: 15px; resize: none; font-size: 16px; display: none; flex-grow: 1; }
+        .edit-input { width: 100%; height: 150px; background: #111; color: #FFD700; border: 2px solid #FFD700; padding: 15px; border-radius: 12px; margin-bottom: 15px; resize: none; font-size: 16px; font-family: sans-serif; display: none; flex-grow: 1; box-shadow: none;}
 
         /* Custom Toast */
-        #customToast { display: none; position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%); background: #FFD700; color: #000; padding: 10px 20px; border-radius: 20px; font-weight: bold; z-index: 9999; font-size: 14px; }
+        #customToast { display: none; position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%); background: #FFD700; color: #000; padding: 10px 20px; border-radius: 20px; font-weight: bold; z-index: 9999; box-shadow: none; font-size: 14px; }
     </style>
 </head>
 <body>
@@ -101,8 +134,9 @@
                 <p>IDEAS • PLANS • DREAMS</p>
             </div>
         </div>
-        <button onclick="showAbout()" style="background: transparent; color: #FFD700; border: 2px solid #FFD700; width: 45px; height: 45px; border-radius: 50%; cursor: pointer; font-weight: bold;">
-            i
+        <!-- Updated About Button (Looks like your website) -->
+        <button class="about-btn" onclick="showAbout()">
+            👋
         </button>
     </div>
 
@@ -292,7 +326,20 @@
             let textBox = document.getElementById('noteInput');
             let text = textBox.value;
             
-            if(text.trim() === "") { alert("Note khali hai!"); return; }
+            // Yahan Ganda Popup Hata Kar Custom Toast Lagaya Hai
+            if(text.trim() === "") { 
+                let toast = document.getElementById('customToast');
+                toast.innerText = "Note khali hai!";
+                toast.style.backgroundColor = "#ff4444";
+                toast.style.color = "#fff";
+                toast.style.display = 'block';
+                setTimeout(() => { 
+                    toast.style.display = 'none'; 
+                    toast.style.backgroundColor = "#FFD700";
+                    toast.style.color = "#000";
+                }, 2000);
+                return; 
+            }
             
             let now = new Date();
             let dateStr = now.getDate() + ' ' + now.toLocaleString('default', { month: 'short' }) + ' ' + now.getFullYear();
@@ -344,11 +391,12 @@
                 
                 let displayText = note.text.replace(/</g, "&lt;").replace(/>/g, "&gt;");
                 
+                // Yahan Delete Button ko Emoji se replace kiya hai taaki Font Awesome ki zaroorat na pade
                 div.innerHTML = `
                     <div class="note-title">${displayText}</div>
                     <div class="note-footer">
                         <span style="font-size:10px; color:#888;">${note.date}</span>
-                        <button class="delete-btn" onclick="deleteNote(event, ${originalIndex})"><i class="fas fa-trash"></i></button>
+                        <button class="delete-btn" onclick="deleteNote(event, ${originalIndex})" style="font-size: 16px;">🗑️</button>
                     </div>
                 `;
                 list.appendChild(div);
@@ -421,7 +469,21 @@
 
         function saveEditedNote() {
             let newText = document.getElementById('editNoteInput').value;
-            if(newText.trim() === "") { alert("Note khali nahi ho sakta!"); return; }
+            
+            // Yahan bhi Ganda popup hata diya
+            if(newText.trim() === "") { 
+                 let toast = document.getElementById('customToast');
+                toast.innerText = "Note khali nahi ho sakta!";
+                toast.style.backgroundColor = "#ff4444";
+                toast.style.color = "#fff";
+                toast.style.display = 'block';
+                setTimeout(() => { 
+                    toast.style.display = 'none'; 
+                    toast.style.backgroundColor = "#FFD700";
+                    toast.style.color = "#000";
+                }, 2000);
+                return; 
+            }
 
             allNotes[editingIndex].text = newText;
             localStorage.setItem('abdNotesData', JSON.stringify(allNotes));
